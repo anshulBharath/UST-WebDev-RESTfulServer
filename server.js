@@ -14,7 +14,7 @@ let db_filename = path.join(__dirname, 'db', 'stpaul_crime.sqlite3');
 let app = express();
 let port = 8000;
 
-// Open usenergy.sqlite3 database
+// Open stpaul_crime.sqlite3 database
 let db = new sqlite3.Database(db_filename, sqlite3.OPEN_READONLY, (err) => {
     if (err) {
         console.log('Error opening ' + db_filename);
@@ -28,7 +28,7 @@ let db = new sqlite3.Database(db_filename, sqlite3.OPEN_READONLY, (err) => {
 //app.use(express.static(public_dir));
 
 
-// GET request handler for home page '/' (redirect to /year/2018)
+// GET request handler for home page '/' 
 app.get('/', (req, res) => {
     res.redirect('/home');
 });
@@ -40,6 +40,10 @@ app.get('/home',(req, res) => {
 // GET request handler for '/codes'
 app.get('/codes',(req, res) => {
     console.log('codes');
+
+    db.all('SELECT * FROM Codes', (err, rows) => {
+        res.status(200).type('json').send(rows);
+    });
 });
 
 // GET request handler for '/neighborhoods'
