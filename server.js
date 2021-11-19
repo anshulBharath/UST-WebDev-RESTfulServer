@@ -40,11 +40,37 @@ app.get('/home',(req, res) => {
 // GET request handler for '/codes'
 app.get('/codes',(req, res) => {
     console.log('codes');
+    console.log(req.query);
 
-    db.all('SELECT * FROM Codes', (err, rows) => {
-        res.status(200).type('json').send(rows);
-    });
+    if(Object.entries(req.query).length === 0) {
+        db.all('SELECT * FROM Codes', (err, rows) => {
+            res.status(200).type('json').send(rows);
+        });
+    }
+    else {
+        let query_rows = req.query.code.split(',');
+        
+        console.log("query rows: " + query_rows);
+        var response=[];
+
+        query_rows.forEach(code => {
+            db.get('SELECT * FROM Codes WHERE code = ?', [code], (err, row) => {
+                if(err) {
+                    console.log('not a valid code');
+                }
+                else {
+                    response.push(row);
+                    if(response.length === query_rows.length) {
+                        res.status(200).type('json').send(response);
+                    }
+                }
+            });
+        });
+    }
+
+   
 });
+
 
 // GET request handler for '/neighborhoods'
 app.get('/neighborhoods', (req, res) => {
