@@ -80,6 +80,16 @@ app.get('/neighborhoods', (req, res) => {
 // GET request handler for '/incidents'
 app.get('/incidents', (req, res) => {
     console.log('incidents');
+
+    let incidentPromise = new Promise((resolve, reject) => {
+        db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents ORDER BY date_time;', (err, rows) => {
+            resolve(rows);
+        })
+    });
+
+    Promise.all([incidentPromise]).then((results) => {
+        res.status(200).type('json').send(results);
+    });
 });
 
 app.listen(port, () => {
