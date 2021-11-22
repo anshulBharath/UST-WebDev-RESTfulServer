@@ -75,6 +75,31 @@ app.get('/codes',(req, res) => {
 // GET request handler for '/neighborhoods'
 app.get('/neighborhoods', (req, res) => {
     console.log('neighborhoods');
+    console.log(req.query.id);
+
+    if(Object.entries(req.query).length === 0) {
+        db.all('SELECT * FROM Neighborhoods order by neighborhood_number', (err, rows) => {
+            res.status(200).type('json').send(rows);
+        });
+    }
+    else {
+        let query_rows = req.query.id.split(',');
+        var response=[];
+
+        query_rows.forEach(code => {
+            db.get('SELECT * FROM Neighborhoods WHERE neighborhood_number = ? order by neighborhood_number', [code], (err, row) => {
+                if(err) {
+                    console.log('not a valid neighborhood id');
+                }
+                else {
+                    response.push(row);
+                    if(response.length === query_rows.length) {
+                        res.status(200).type('json').send(response);
+                    }
+                }
+            });
+        });
+    }
 });
 
 // GET request handler for '/incidents'
