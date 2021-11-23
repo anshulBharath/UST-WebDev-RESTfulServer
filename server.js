@@ -53,22 +53,44 @@ app.get('/codes',(req, res) => {
         console.log("query rows: " + query_rows);
         var response=[];
 
-        query_rows.forEach(code => {
-            db.get('SELECT * FROM Codes WHERE code = ?', [code], (err, row) => {
-                if(err) {
-                    console.log('not a valid code');
-                }
-                else {
-                    response.push(row);
-                    if(response.length === query_rows.length) {
-                        res.status(200).type('json').send(response);
+        let query_promise = new Promise((resolve, reject) => {
+            query_rows.forEach(code => {
+                db.get('SELECT * FROM Codes WHERE code = ?', [code], (err, row) => {
+                    if(err || typeof row == 'undefined') {
+                        reject('Not a valid Code: ' + code);
                     }
-                }
+                    else {
+                        response.push(row);
+                        if(response.length === query_rows.length) {
+                            resolve(response);
+                        }
+                    }
+                });
             });
         });
-    }
 
-   
+        query_promise.then( (data) => {
+            res.status(200).type('json').send(data);
+        }).catch((error) => {
+            console.log(error)
+            res.status(404).send("404 File Not Found - " + error);
+        });
+    /*
+            query_rows.forEach(code => {
+                db.get('SELECT * FROM Codes WHERE code = ?', [code], (err, row) => {
+                    if(err) {
+                        console.log('not a valid code');
+                    }
+                    else {
+                        response.push(row);
+                        if(response.length === query_rows.length) {
+                            res.status(200).type('json').send(response);
+                        }
+                    }
+                });
+            });
+    */
+    }
 });
 
 
