@@ -210,6 +210,46 @@ app.get('/incidents', (req, res) => {
             res.status(404).send("404 File Not Found - " + error);
         }); 
     }
+    else if (Object.keys(req.query)[0] === 'neighborhood'){
+        let query_rows = req.query.neighborhood.split(',');
+        let response=[];
+
+        let query_promise = new Promise((resolve, reject) => {
+            query_rows.forEach(neighborhood => {
+                db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents WHERE neighborhood_number = ? ORDER BY date_time LIMIT 1000;', [neighborhood], (err, row) => {
+                    if(err || typeof row == 'undefined') {
+                        reject('Not a valid neighborhood: ' + neighborhood);
+                    }
+                    else {
+                        response.push(row);
+                        if(response.length === query_rows.length) {
+                            resolve(response);
+                        }
+                    }
+                });
+            });
+        });
+
+        query_promise.then((data) => {
+            res.status(200).type('json').send(data);
+        }).catch((error) => {
+            console.log(error)
+            res.status(404).send("404 File Not Found - " + error);
+        }); 
+    }
+    else if(Object.keys(req.query)[0] === 'limit') {
+        let limit = req.query.limit;
+
+        let incidentPromise = new Promise((resolve, reject) => {
+            db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents ORDER BY date_time LIMIT ?;',[limit], (err, rows) => {
+                resolve(rows);
+            });
+        });
+    
+        incidentPromise.then((data) => {
+            res.status(200).type('json').send(data);
+        });  
+    }
 });
 
 
