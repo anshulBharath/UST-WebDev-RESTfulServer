@@ -130,7 +130,7 @@ app.get('/incidents', (req, res) => {
 
     if(Object.entries(req.query).length === 0) {
         let incidentPromise = new Promise((resolve, reject) => {
-            db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents ORDER BY date_time;', (err, rows) => {
+            db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents ORDER BY date_time LIMIT 1000;', (err, rows) => {
                 resolve(rows);
             });
         });
@@ -139,13 +139,57 @@ app.get('/incidents', (req, res) => {
             res.status(200).type('json').send(data);
         });  
     }
+    else if (Object.keys(req.query)[0] === 'start_date'){
+        let start_date_query = Object.values(req.query)[0];
+        let response=[];
+
+        let query_promise = new Promise((resolve, reject) => {
+            db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents WHERE date >= ? ORDER BY date_time LIMIT 1000;', [start_date_query], (err, rows) => {
+                if(err || typeof rows == 'undefined') {
+                    reject('Not a valid Start Date: ' + start_date_query);
+                }
+                else {
+                    resolve(rows);
+                }
+            });
+        });
+        
+        query_promise.then((data) => {
+            res.status(200).type('json').send(data);
+        }).catch((error) => {
+            console.log(error)
+            res.status(404).send("404 File Not Found - " + error);
+        }); 
+    }
+    else if (Object.keys(req.query)[0] === 'end_date'){
+        let end_date_query = Object.values(req.query)[0];
+        let response=[];
+
+        let query_promise = new Promise((resolve, reject) => {
+            db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents WHERE date <= ? ORDER BY date_time LIMIT 1000;', [end_date_query], (err, rows) => {
+                if(err || typeof rows == 'undefined') {
+                    reject('Not a valid Start Date: ' + end_date_query);
+                }
+                else {
+                    resolve(rows);
+                }
+            });
+        });
+        
+        query_promise.then((data) => {
+            res.status(200).type('json').send(data);
+        }).catch((error) => {
+            console.log(error)
+            res.status(404).send("404 File Not Found - " + error);
+        }); 
+    }
     else if (Object.keys(req.query)[0] === 'grid'){
-        let query_rows = Object.values(req.query);
+        let query_rows = req.query.grid.split(',');;
         let response=[];
 
         let query_promise = new Promise((resolve, reject) => {
             query_rows.forEach(code => {
-                db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents WHERE police_grid = ? ORDER BY date_time;', [code], (err, row) => {
+                db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents WHERE police_grid = ? ORDER BY date_time LIMIT 1000;', [code], (err, row) => {
                     if(err || typeof row == 'undefined') {
                         reject('Not a valid grid: ' + code);
                     }
@@ -158,7 +202,7 @@ app.get('/incidents', (req, res) => {
                 });
             });
         });
-        
+
         query_promise.then((data) => {
             res.status(200).type('json').send(data);
         }).catch((error) => {
