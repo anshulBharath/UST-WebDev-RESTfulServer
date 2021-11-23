@@ -35,6 +35,7 @@ app.get('/', (req, res) => {
 
 app.get('/home',(req, res) => {
     console.log('home');
+    res.status(200).type('text').send('Home Placeholder');
 });
 
 // GET request handler for '/codes'
@@ -55,7 +56,7 @@ app.get('/codes',(req, res) => {
 
         let query_promise = new Promise((resolve, reject) => {
             query_rows.forEach(code => {
-                db.get('SELECT * FROM Codes WHERE code = ?', [code], (err, row) => {
+                db.all('SELECT * FROM Codes WHERE code = ?', [code], (err, row) => {
                     if(err || typeof row == 'undefined') {
                         reject('Not a valid Code: ' + code);
                     }
@@ -109,7 +110,7 @@ app.get('/neighborhoods', (req, res) => {
         var response=[];
 
         query_rows.forEach(code => {
-            db.get('SELECT * FROM Neighborhoods WHERE neighborhood_number = ? order by neighborhood_number', [code], (err, row) => {
+            db.all('SELECT * FROM Neighborhoods WHERE neighborhood_number = ? order by neighborhood_number', [code], (err, row) => {
                 if(err) {
                     console.log('not a valid neighborhood id');
                 }
@@ -141,7 +142,6 @@ app.get('/incidents', (req, res) => {
     }
     else if (Object.keys(req.query)[0] === 'start_date'){
         let start_date_query = Object.values(req.query)[0];
-        let response=[];
 
         let query_promise = new Promise((resolve, reject) => {
             db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents WHERE date >= ? ORDER BY date_time LIMIT 1000;', [start_date_query], (err, rows) => {
@@ -163,7 +163,6 @@ app.get('/incidents', (req, res) => {
     }
     else if (Object.keys(req.query)[0] === 'end_date'){
         let end_date_query = Object.values(req.query)[0];
-        let response=[];
 
         let query_promise = new Promise((resolve, reject) => {
             db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents WHERE date <= ? ORDER BY date_time LIMIT 1000;', [end_date_query], (err, rows) => {
