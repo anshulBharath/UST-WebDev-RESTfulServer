@@ -167,7 +167,7 @@ app.get('/incidents', (req, res) => {
         let query_promise = new Promise((resolve, reject) => {
             db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents WHERE date <= ? ORDER BY date_time LIMIT 1000;', [end_date_query], (err, rows) => {
                 if(err || typeof rows == 'undefined') {
-                    reject('Not a valid Start Date: ' + end_date_query);
+                    reject('Not a valid End Date: ' + end_date_query);
                 }
                 else {
                     resolve(rows);
@@ -175,6 +175,33 @@ app.get('/incidents', (req, res) => {
             });
         });
         
+        query_promise.then((data) => {
+            res.status(200).type('json').send(data);
+        }).catch((error) => {
+            console.log(error)
+            res.status(404).send("404 File Not Found - " + error);
+        }); 
+    }
+    else if (Object.keys(req.query)[0] === 'code'){
+        let query_rows = req.query.code.split(',');;
+        let response=[];
+
+        let query_promise = new Promise((resolve, reject) => {
+            query_rows.forEach(code => {
+                db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents WHERE code = ? ORDER BY date_time LIMIT 1000;', [code], (err, row) => {
+                    if(err || typeof row == 'undefined') {
+                        reject('Not a valid Code: ' + code);
+                    }
+                    else {
+                        response.push(row);
+                        if(response.length === query_rows.length) {
+                            resolve(response);
+                        }
+                    }
+                });
+            });
+        });
+
         query_promise.then((data) => {
             res.status(200).type('json').send(data);
         }).catch((error) => {
