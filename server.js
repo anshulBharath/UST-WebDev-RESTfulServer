@@ -128,16 +128,47 @@ app.get('/neighborhoods', (req, res) => {
 app.get('/incidents', (req, res) => {
     console.log('incidents');
 
-    let incidentPromise = new Promise((resolve, reject) => {
-        db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents ORDER BY date_time;', (err, rows) => {
-            resolve(rows);
-        })
-    });
+    if(Object.entries(req.query).length === 0) {
+        let incidentPromise = new Promise((resolve, reject) => {
+            db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents ORDER BY date_time;', (err, rows) => {
+                resolve(rows);
+            });
+        });
+    
+        incidentPromise.then((data) => {
+            res.status(200).type('json').send(data);
+        });  
+    }
+    else if (Object.keys(req.query)[0] === 'grid'){
+        let query_rows = Object.values(req.query);
+        let response=[];
 
-    Promise.all([incidentPromise]).then((results) => {
-        res.status(200).type('json').send(results);
-    });
+        let query_promise = new Promise((resolve, reject) => {
+            query_rows.forEach(code => {
+                db.all('SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents WHERE police_grid = ? ORDER BY date_time;', [code], (err, row) => {
+                    if(err || typeof row == 'undefined') {
+                        reject('Not a valid grid: ' + code);
+                    }
+                    else {
+                        response.push(row);
+                        if(response.length === query_rows.length) {
+                            resolve(response);
+                        }
+                    }
+                });
+            });
+        });
+        
+        query_promise.then((data) => {
+            res.status(200).type('json').send(data);
+        }).catch((error) => {
+            console.log(error)
+            res.status(404).send("404 File Not Found - " + error);
+        }); 
+    }
 });
+
+
 
 app.listen(port, () => {
     console.log('Now listening on port ' + port);
