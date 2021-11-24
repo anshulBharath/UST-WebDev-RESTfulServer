@@ -5,9 +5,9 @@ let path = require('path');
 // NPM modules
 let express = require('express');
 let sqlite3 = require('sqlite3');
-var cors = require('cors')
+let cors = require('cors');
 
-app.use(cors());
+
 
 let public_dir = path.join(__dirname, 'public');
 let template_dir = path.join(__dirname, 'templates');
@@ -15,9 +15,10 @@ let db_filename = path.join(__dirname, 'db', 'stpaul_crime.sqlite3');
 
 let app = express();
 let port = 8000;
+app.use(cors());
 
 // Open stpaul_crime.sqlite3 database
-let db = new sqlite3.Database(db_filename, sqlite3.OPEN_READONLY, (err) => {
+let db = new sqlite3.Database(db_filename, sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
         console.log('Error opening ' + db_filename);
     }
@@ -281,6 +282,15 @@ app.get('/incidents', (req, res) => {
 });
 
 
+app.delete('/remove-incident', (req, res) => {
+    db.run('DELETE FROM incidents where case_number = ?', [req.query.case_number], (err) => {
+        if (err) {
+            res.status(500).send("Error deleting entry in database")
+        } else {
+            res.status(200).send("Successfully deleted entry " + req.query.case_number);
+        }
+    });
+});
 
 app.listen(port, () => {
     console.log('Now listening on port ' + port);
