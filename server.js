@@ -283,13 +283,25 @@ app.get('/incidents', (req, res) => {
 
 
 app.delete('/remove-incident', (req, res) => {
-    db.run('DELETE FROM incidents where case_number = ?', [req.query.case_number], (err) => {
+    db.all("SELECT * FROM incidents where case_number = ?", [req.query.case_number], (err, rows) => {
         if (err) {
-            res.status(500).send("Error deleting entry in database")
+            res.status(500).send('Error accessing database')
         } else {
-            res.status(200).send("Successfully deleted entry " + req.query.case_number);
+            if (rows.length < 1) {
+                res.status(500).send("Case number not found");
+            } else {
+                db.run('DELETE FROM incidents where case_number = ?', [req.query.case_number], (err) => {
+                    if (err) {
+                        res.status(500).send("Error deleting entry in database")
+                    } else {
+                        console.log(this);
+                        res.status(200).send("Successfully deleted entry " + req.query.case_number);
+                    }
+                });
+            }
         }
-    });
+    })
+
 });
 
 app.listen(port, () => {
