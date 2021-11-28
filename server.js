@@ -17,6 +17,10 @@ let app = express();
 let port = 8000;
 app.use(cors());
 
+app.use(cors());
+app.use(express.json()) // for parsing application/json
+
+
 // Open stpaul_crime.sqlite3 database
 let db = new sqlite3.Database(db_filename, sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
@@ -301,7 +305,30 @@ app.delete('/remove-incident', (req, res) => {
             }
         }
     })
+});
 
+
+app.put('/new-incident', (req, res) => {
+    console.log(req.body);
+    let date_time = req.body.date + "T" + req.body.time;
+    console.log(date_time);  
+    
+    db.run(`INSERT INTO incidents (case_number, date_time, code, incident, police_grid, neighborhood_number, block) VALUES (?, ?, ?, ?, ?, ?, ?)`, 
+        [req.body.case_number, date_time, req.body.code, req.body.incident, req.body.police_grid, req.body.neighborhood_number, req.body.block],
+        (err, row) => {
+            if (err) {
+                if(err.message.includes("UNIQUE")) {
+                    res.status(500).json({ "error": " case_number is already in use: " + err.message })
+                }
+                else {
+                    res.status(500).json({ "error": err.message })
+                }
+                return;
+            }
+            console.log("row: " + row);
+            res.status(200).send('put successful');
+        });
+    
 });
 
 app.listen(port, () => {
