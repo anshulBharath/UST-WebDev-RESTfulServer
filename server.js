@@ -32,7 +32,7 @@ let db = new sqlite3.Database(db_filename, sqlite3.OPEN_READWRITE, (err) => {
 });
 
 // Serve static files from 'public' directory
-//app.use(express.static(public_dir));
+app.use(express.static(public_dir));
 
 
 // GET request handler for home page '/' 
@@ -42,7 +42,14 @@ app.get('/', (req, res) => {
 
 app.get('/home',(req, res) => {
     console.log('home');
-    res.status(200).type('text').send('Home Placeholder');
+    fs.readFile(path.join(public_dir, 'index.html'), 'utf-8', (err, page) => {
+        if(err){
+            res.status(404).send("Error: File Not Found");
+        }
+        else { 
+            res.status(200).type('html').send(page);
+        }
+    });
 });
 
 // GET request handler for '/codes'
