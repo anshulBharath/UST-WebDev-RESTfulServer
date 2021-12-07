@@ -42,6 +42,19 @@ function init() {
                 }
             }, 
         }, 
+        methods: {
+            setTableRowColor(incident_type) {
+                if(incident_type == "Theft" || incident_type == "Auto Theft" || incident_type == "Burglary" || incident_type == "Vandalism" || incident_type == "Robbery" || incident_type == "Graffiti" || incident_type == "Arson") {
+                    return 'propertyCrimesBGColor';
+                }
+                else if(incident_type == "Simple Asasult Dom." || incident_type == "Discharge" || incident_type == "Agg. Assault Dom." || incident_type == "Agg. Assault" || incident_type == "Rape") {
+                    return 'violentCrimesBGColor'
+                }
+                else {
+                    return 'otherCrimesBGColor'
+                }
+            }
+        },
         mounted () {
             axios
               .get('http://localhost:8000/incidents')
