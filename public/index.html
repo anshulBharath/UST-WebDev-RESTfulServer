@@ -48,14 +48,14 @@
                 </thead>
                 <tbody>
                   <tr v-for="incident in info">
-                    <td>{{ incident.case_number }}</td>
-                    <td>{{ incident.date }}</td>
-                    <td>{{ incident.time }}</td>
-                    <td>{{ incident.code }}</td>
-                    <td>{{ incident.incident }}</td>
-                    <td>{{ incident.police_grid }}</td>
-                    <td>{{ incident.neighborhood_number }}</td>
-                    <td>{{ incident.block }}</td>
+                      <td :class="setTableRowColor(incident.incident)">{{ incident.case_number }}</td>
+                      <td :class="setTableRowColor(incident.incident)">{{ incident.date }}</td>
+                      <td :class="setTableRowColor(incident.incident)">{{ incident.time }}</td>
+                      <td :class="setTableRowColor(incident.incident)">{{ incident.code }}</td>
+                      <td :class="setTableRowColor(incident.incident)">{{ incident.incident }}</td>
+                      <td :class="setTableRowColor(incident.incident)">{{ incident.police_grid }}</td>
+                      <td :class="setTableRowColor(incident.incident)">{{ incident.neighborhood_number }}</td>
+                      <td :class="setTableRowColor(incident.incident)">{{ incident.block }}</td> 
                   </tr>
                 </tbody>
               </table>

@@ -12,8 +12,18 @@
 thead {
     position: sticky;
     top: -1px; /* Don't forget this, required for the stickiness */
-    background: #DDEDF4;
+    background: white;
     margin: 0;
     padding: 0;
     
+}
+
+.violentCrimesBGColor {
+    background-color: #FFDBDB;
+}
+.propertyCrimesBGColor { 
+    background-color: #E3F5FF;
+}
+.otherCrimesBGColor {
+    background-color: #FFFEDC;
 }
