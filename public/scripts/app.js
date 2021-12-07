@@ -1,3 +1,4 @@
+
 let app;
 let map;
 let neighborhood_markers = 
@@ -27,6 +28,7 @@ function init() {
     app = new Vue({
         el: '#app',
         data: {
+            info: [],
             map: {
                 center: {
                     lat: 44.955139,
@@ -38,9 +40,16 @@ function init() {
                     nw: {lat: 45.008206, lng: -93.217977},
                     se: {lat: 44.883658, lng: -92.993787}
                 }
-            }
-        }
+            }, 
+        }, 
+        mounted () {
+            axios
+              .get('http://localhost:8000/incidents')
+              .then(response => (this.info = response.data))
+              //.then(response => (console.log(response.data)))
+          }
     });
+
 
     map = L.map('leafletmap').setView([app.map.center.lat, app.map.center.lng], app.map.zoom);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

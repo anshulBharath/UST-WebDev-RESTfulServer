@@ -13,7 +13,15 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
     <!-- Vue JS -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Foundation Compressed CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/css/foundation.min.css" crossorigin="anonymous">
+
+   
 
     <!-- Application -->
     <link rel="stylesheet" href="css/style.css"/>
@@ -23,6 +31,38 @@
     <!-- Main app -->
     <div id="app">
         <div id="leafletmap"></div>
+
+        <div id="table">
+            <table>
+                <thead>
+                  <tr>
+                    <th width="150" >Case Number</th>
+                    <th width="150">Date</th>
+                    <th width="150">Time</th>
+                    <th width="150">Code</th>
+                    <th width="150">Incident</th>
+                    <th width="150">Police Grid</th>
+                    <th width="150">Neighborhood Number</th>
+                    <th width="150">Block</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="incident in info">
+                    <td>{{ incident.case_number }}</td>
+                    <td>{{ incident.date }}</td>
+                    <td>{{ incident.time }}</td>
+                    <td>{{ incident.code }}</td>
+                    <td>{{ incident.incident }}</td>
+                    <td>{{ incident.police_grid }}</td>
+                    <td>{{ incident.neighborhood_number }}</td>
+                    <td>{{ incident.block }}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            <!-- {{ info }} -->
+
+        </div>
     </div>
 </body>
 </html>
