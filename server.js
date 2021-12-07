@@ -9,6 +9,7 @@ let cors = require('cors');
 
 
 
+
 let public_dir = path.join(__dirname, 'public');
 let template_dir = path.join(__dirname, 'templates');
 let db_filename = path.join(__dirname, 'db', 'stpaul_crime.sqlite3');
