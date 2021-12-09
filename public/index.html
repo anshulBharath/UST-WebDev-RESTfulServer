@@ -31,13 +31,92 @@
     <!-- Main app -->
     <div id="app">
         <div id="leafletmap"></div>
-        <div id="table">
-          <div id="legend">
-            <h5 id="legend_title">Legend</h1>
-            <p class="legend_text">Violent Crimes: </p> <p id="violent_crimes_legend_color_block">||||</p> <br>
-            <p class="legend_text">Property Crimes: </p> <p id="property_crimes_legend_color_block">||||</p> <br>
-            <p class="legend_text">Other Crimes: </p> <p id="other_crimes_legend_color_block">||||</p> <br>
-          </div>
+        
+        <div id="table_container">
+          <h3 id="ui_controls_title">Data Filters</h3>
+          <fieldset class="fieldset">
+          <div id="ui_controls_container" class="grid-x">
+            <div class="cell small-3">
+              <fieldset class="fieldset" id="incident_type_fieldset">
+                <legend>Incident Type</legend>
+                <input id="incident_Type_checkbox_1" type="checkbox"><label for="incident_Type_checkbox_1">Murder</label> <br>
+                <input id="incident_Type_checkbox_2" type="checkbox"><label for="incident_Type_checkbox_2">Rape</label> <br>
+                <input id="incident_Type_checkbox_3" type="checkbox"><label for="incident_Type_checkbox_3">Robbery</label> <br>
+                <input id="incident_Type_checkbox_4" type="checkbox"><label for="incident_Type_checkbox_4">Aggravated Assault</label> <br>
+                <input id="incident_Type_checkbox_5" type="checkbox"><label for="incident_Type_checkbox_5">Burglary</label> <br>
+                <input id="incident_Type_checkbox_6" type="checkbox"><label for="incident_Type_checkbox_6">Theft</label> <br>
+                <input id="incident_Type_checkbox_7" type="checkbox"><label for="incident_Type_checkbox_7">Motor Vehicle Theft</label> <br>
+                <input id="incident_Type_checkbox_8" type="checkbox"><label for="incident_Type_checkbox_8">Assault</label> <br>
+                <input id="incident_Type_checkbox_9" type="checkbox"><label for="incident_Type_checkbox_9">Arson</label> <br>
+                <input id="incident_Type_checkbox_10" type="checkbox"><label for="incident_Type_checkbox_10">Criminal Damage to Property</label> <br>
+                <input id="incident_Type_checkbox_11" type="checkbox"><label for="incident_Type_checkbox_11">Graffiti</label> <br>
+                <input id="incident_Type_checkbox_12" type="checkbox"><label for="incident_Type_checkbox_12">Narcotics</label> <br>
+                <input id="incident_Type_checkbox_13" type="checkbox"><label for="incident_Type_checkbox_13">Weapons</label> <br>
+                <input id="incident_Type_checkbox_14" type="checkbox"><label for="incident_Type_checkbox_14">Investigation of Death</label> <br>
+                <input id="incident_Type_checkbox_15" type="checkbox"><label for="incident_Type_checkbox_15">Proactive Police Visit</label> <br>
+                <input id="incident_Type_checkbox_16" type="checkbox"><label for="incident_Type_checkbox_16">Community Engagement Event</label> <br>
+                <input id="incident_Type_checkbox_17" type="checkbox"><label for="incident_Type_checkbox_17">Proactive Foot Patrol</label> <br>
+              </fieldset>
+            </div>
+            <div class="cell small-3">
+              <fieldset class="fieldset" id="neighborhood_name_fieldset">
+                <legend>Neighborhood Name</legend>
+                <input id="neighborhood_name_checkbox_1" type="checkbox"><label for="neighborhood_name_checkbox_1">Conway/Battlecreek/Highwood</label> <br>
+                <input id="neighborhood_name_checkbox_2" type="checkbox"><label for="neighborhood_name_checkbox_2">Greater East Side</label> <br>
+                <input id="neighborhood_name_checkbox_3" type="checkbox"><label for="neighborhood_name_checkbox_3">West Side</label> <br>
+                <input id="neighborhood_name_checkbox_4" type="checkbox"><label for="neighborhood_name_checkbox_4">Dayton's Bluff</label> <br>
+                <input id="neighborhood_name_checkbox_5" type="checkbox"><label for="neighborhood_name_checkbox_5">Payne/Phalen</label> <br>
+                <input id="neighborhood_name_checkbox_6" type="checkbox"><label for="neighborhood_name_checkbox_6">North End</label> <br>
+                <input id="neighborhood_name_checkbox_7" type="checkbox"><label for="neighborhood_name_checkbox_7">Thomas/Dale(Frogtown)</label> <br>
+                <input id="neighborhood_name_checkbox_8" type="checkbox"><label for="neighborhood_name_checkbox_8">Summit/University</label> <br>
+                <input id="neighborhood_name_checkbox_9" type="checkbox"><label for="neighborhood_name_checkbox_9">West Seventh</label> <br>
+                <input id="neighborhood_name_checkbox_10" type="checkbox"><label for="neighborhood_name_checkbox_10">Como</label> <br>
+                <input id="neighborhood_name_checkbox_11" type="checkbox"><label for="neighborhood_name_checkbox_11">Hamline/Midway</label> <br>
+                <input id="neighborhood_name_checkbox_12" type="checkbox"><label for="neighborhood_name_checkbox_12">St. Anthony</label> <br>
+                <input id="neighborhood_name_checkbox_13" type="checkbox"><label for="neighborhood_name_checkbox_13">Union Park</label> <br>
+                <input id="neighborhood_name_checkbox_14" type="checkbox"><label for="neighborhood_name_checkbox_14">Macalester-Groveland</label> <br>
+                <input id="neighborhood_name_checkbox_15" type="checkbox"><label for="neighborhood_name_checkbox_15">Highland</label> <br>
+                <input id="neighborhood_name_checkbox_16" type="checkbox"><label for="neighborhood_name_checkbox_16">Summit Hill</label> <br>
+                <input id="neighborhood_name_checkbox_17" type="checkbox"><label for="neighborhood_name_checkbox_17">Capital River</label> <br>
+              </fieldset>
+            </div>
+            <div class="cell small-3">
+              <fieldset class="fieldset" id="date_range_fieldset">
+                <legend>Date Range</legend>
+                <label for="date_range_start_input">Start Date</label>
+                <input id="date_range_start_input" type="date"> <br>
+                <label for="date_range_end_input">End Date</label>
+                <input id="date_range_end_input" type="date"> <br>
+              </fieldset>
+              <fieldset class="fieldset" id="time_range_fieldset">
+                <legend>Time Range</legend>
+                <label for="date_range_start_input">Start Time</label>
+                <input id="date_range_start_input" type="time"> <br>
+                <label for="date_range_end_input">End Time</label>
+                <input id="date_range_end_input" type="time"> <br>
+              </fieldset>
+            </div>
+            <div class="cell small-3">
+              <fieldset class="fieldset" id="max_number_incidents_fieldset">
+                <legend>Maximum Number of Incidents</legend>
+                <label for="date_range_start_input">Number</label>
+                <input id="date_range_start_input" type="number"> <br>
+              </fieldset>
+              <fieldset class="fieldset" id="submit_fieldset">
+                <legend>Submit Filters to Update Table</legend>
+                <input type="submit" class="button" value="Submit">
+              </fieldset>
+              <fieldset id="legend" class="fieldset">
+                <legend id="legend_title">Color Legend</legend>
+                <p class="legend_text">Violent Crimes: </p> <p id="violent_crimes_legend_color_block">||||</p> <br>
+                <p class="legend_text">Property Crimes: </p> <p id="property_crimes_legend_color_block">||||</p> <br>
+                <p class="legend_text">Other Crimes: </p> <p id="other_crimes_legend_color_block">||||</p> <br>
+              </fieldset>
+              
+            </div>
+
+            </div>
+          </fieldset>
             <table>
                 <thead>
                   <tr>
