@@ -3,7 +3,7 @@
     height: 600px; /* feel free to change this! */
 }
 
-#table {
+#table_container {
     margin: 8rem;
 }
 
@@ -30,14 +30,15 @@ thead {
 
 #legend {
     background-color: #EEEEEE;
-    width: 10%;
-    text-align: center;
-
+   
+    
+    display: inline;
 }
 
 #legend_title {
     text-decoration: underline;
-    text-align: center;
+    
+    font-size: 1.15rem;
 }
 
 .legend_text {
@@ -62,4 +63,18 @@ thead {
     background-color: #FFFEDC;
     color: #FFFEDC;
     display: inline;
+}
+
+#incident_type_fieldset {
+    
+}
+
+#ui_controls_title {
+    margin-left: 1rem;
+}
+
+.fieldset {
+    margin: 1rem;
+    margin-bottom: 3rem;
+    
 }
