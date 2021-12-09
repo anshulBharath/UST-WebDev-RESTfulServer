@@ -27,3 +27,39 @@ thead {
 .otherCrimesBGColor {
     background-color: #FFFEDC;
 }
+
+#legend {
+    background-color: #EEEEEE;
+    width: 10%;
+    text-align: center;
+
+}
+
+#legend_title {
+    text-decoration: underline;
+    text-align: center;
+}
+
+.legend_text {
+    display: inline;
+    
+}
+
+#violent_crimes_legend_color_block{ 
+    background-color: #FFDBDB;
+    color: #FFDBDB;
+    display: inline;
+    
+}
+
+#property_crimes_legend_color_block{ 
+    background-color: #E3F5FF;
+    color: #E3F5FF;
+    display: inline;
+}
+
+#other_crimes_legend_color_block{ 
+    background-color: #FFFEDC;
+    color: #FFFEDC;
+    display: inline;
+}
