@@ -1,6 +1,9 @@
 #leafletmap {
     width: 800px;  /* feel free to change this! */
     height: 600px; /* feel free to change this! */
+    margin: auto;
+    width: 50%;
+    padding: 10px;
 }
 
 #table_container {
@@ -77,4 +80,8 @@ thead {
     margin: 1rem;
     margin-bottom: 3rem;
     
+}
+
+#middle_or {
+    text-align: center;
 }

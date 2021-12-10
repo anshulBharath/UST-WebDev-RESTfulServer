@@ -31,6 +31,35 @@
     <!-- Main app -->
     <div id="app">
         <div id="leafletmap"></div>
+
+        <div id="table_container">
+          <h3 id="ui_controls_title">Location Search</h3>
+            <div id="ui_controls_container" class="grid-x">
+              <div class="cell small-5">
+                <fieldset class="fieldset">
+                  <legend>Search By Address</legend>
+                  <input type="text" placeholder="Street Number" v-model="streetNumber"> <br>
+                  <input type="text" placeholder="Street Name" v-model="streetName"> <br>
+                  <button v-on:click="searchAddress" class="button">Search</button>
+                </fieldset>
+              </div>
+              <div class="cell small-2">
+                <br>
+                <br>
+                <br> <!-- Can change this later to algign properly-->
+                <br>
+                <br>
+                <h4 id="middle_or">-OR-</h4>
+              </div>
+              <div class="cell small-5">
+                <fieldset class="fieldset">
+                  <legend>Search By Longitude & Latitude</legend>
+                  <input type="text" placeholder="Longitude" v-model="longitude"> <br>
+                  <input type="text" placeholder="Latitude" v-model="latitude"> <br>
+                  <button v-on:click="searchAddress" class="button">Search</button>
+                </fieldset>
+              </div>
+        </div>
         
         <div id="table_container">
           <h3 id="ui_controls_title">Data Filters</h3>
