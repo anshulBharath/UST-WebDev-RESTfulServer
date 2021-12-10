@@ -41,8 +41,10 @@ function init() {
                     se: {lat: 44.883658, lng: -92.993787}
                 }
             },
-            //longitude: map.center.lng,
-            //latitude: map.center.lat
+            streetNumber: '',
+            streetName: '',
+            longitude: '',
+            latitude:''
         }, 
         methods: {
             setTableRowColor(incident_type) {
@@ -55,8 +57,13 @@ function init() {
                 else {
                     return 'otherCrimesBGColor'
                 }
+            }
+        },
+        computed: {
+            current_lng: function () {
+            
             },
-            searchLocation() {
+            current_lat: function () {
 
             }
         },
@@ -65,7 +72,7 @@ function init() {
               .get('http://localhost:8000/incidents')
               .then(response => (this.info = response.data))
               //.then(response => (console.log(response.data)))
-          }
+        }
     });
 
 

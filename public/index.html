@@ -38,9 +38,11 @@
               <div class="cell small-5">
                 <fieldset class="fieldset">
                   <legend>Search By Address</legend>
+                  <p>{{ streetNumber }}</p>
                   <input type="text" placeholder="Street Number" v-model="streetNumber"> <br>
+                  <p> {{streetName }}</p>
                   <input type="text" placeholder="Street Name" v-model="streetName"> <br>
-                  <button v-on:click="searchAddress" class="button">Search</button>
+                  <button  class="button">Search</button> <!-- v-on:click="searchAddress"-->
                 </fieldset>
               </div>
               <div class="cell small-2">
@@ -54,9 +56,9 @@
               <div class="cell small-5">
                 <fieldset class="fieldset">
                   <legend>Search By Longitude & Latitude</legend>
-                  <input type="text" placeholder="Longitude" v-model="longitude"> <br>
-                  <input type="text" placeholder="Latitude" v-model="latitude"> <br>
-                  <button v-on:click="searchAddress" class="button">Search</button>
+                  <input type="text" :placeholder="current_lng" v-model="longitude"> <br>
+                  <input type="text" :placeholder="current_lat" v-model="latitude"> <br>
+                  <button class="button">Search</button>
                 </fieldset>
               </div>
         </div>
@@ -146,7 +148,9 @@
 
             </div>
           </fieldset>
-            <table>
+
+          <div class="grid-container">
+            <table class="table-scroll">
                 <thead>
                   <tr>
                     <th width="150" >Case Number</th>
@@ -172,6 +176,7 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
 
             <!-- {{ info }} -->
 
