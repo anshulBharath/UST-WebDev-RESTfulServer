@@ -22,7 +22,7 @@ thead {
     background-color: #FFDBDB;
 }
 .propertyCrimesBGColor { 
-    background-color: #E3F5FF;
+    background-color: #c8e7ff;
 }
 .otherCrimesBGColor {
     background-color: #FFFEDC;
@@ -54,8 +54,8 @@ thead {
 }
 
 #property_crimes_legend_color_block{ 
-    background-color: #E3F5FF;
-    color: #E3F5FF;
+    background-color: #c8e7ff;
+    color: #c8e7ff;
     display: inline;
 }
 
