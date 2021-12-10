@@ -40,7 +40,9 @@ function init() {
                     nw: {lat: 45.008206, lng: -93.217977},
                     se: {lat: 44.883658, lng: -92.993787}
                 }
-            }, 
+            },
+            //longitude: map.center.lng,
+            //latitude: map.center.lat
         }, 
         methods: {
             setTableRowColor(incident_type) {
@@ -53,6 +55,9 @@ function init() {
                 else {
                     return 'otherCrimesBGColor'
                 }
+            },
+            searchLocation() {
+
             }
         },
         mounted () {
