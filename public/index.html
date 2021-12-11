@@ -30,7 +30,10 @@
 <body onload="init()">
     <!-- Main app -->
     <div id="app">
-        <div id="leafletmap"></div>
+      <br/>
+      <br/>
+      
+      <div id="leafletmap" onmouseup="updateCenterCoordinates()"></div>
 
         <div id="table_container">
           <h3 id="ui_controls_title">Location Search</h3>
@@ -38,11 +41,9 @@
               <div class="cell small-5">
                 <fieldset class="fieldset">
                   <legend>Search By Address</legend>
-                  <p>{{ streetNumber }}</p>
                   <input type="text" placeholder="Street Number" v-model="streetNumber"> <br>
-                  <p> {{streetName }}</p>
                   <input type="text" placeholder="Street Name" v-model="streetName"> <br>
-                  <button  class="button" onclick="searchAddress()">Search</button> <!-- v-on:click="searchAddress"-->
+                  <button  class="button" onclick="searchAddress()">GO</button> <!-- v-on:click="searchAddress"-->
                 </fieldset>
               </div>
               <div class="cell small-2">
@@ -56,9 +57,9 @@
               <div class="cell small-5">
                 <fieldset class="fieldset">
                   <legend>Search By Longitude & Latitude</legend>
-                  <input type="text" placeholder="Latitude" v-model="latitude"> <br>
-                  <input type="text" placeholder="Longitude" v-model="longitude"> <br>
-                  <button class="button" onclick="searchLonLat()">Search</button>
+                  <input type="text" :placeholder="centerLat" v-model="latitude"> <br>
+                  <input type="text" :placeholder="centerLng" v-model="longitude"> <br>
+                  <button class="button" onclick="searchLonLat()">GO</button>
                 </fieldset>
               </div>
         </div>

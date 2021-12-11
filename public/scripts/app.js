@@ -44,7 +44,9 @@ function init() {
             streetNumber: '',
             streetName: '',
             longitude: '',
-            latitude:''
+            latitude:'',
+            centerLat:'Enter a Latitude',
+            centerLng:'Enter a Longitude'
         }, 
         methods: {
             setTableRowColor(incident_type) {
@@ -57,14 +59,6 @@ function init() {
                 else {
                     return 'otherCrimesBGColor'
                 }
-            }
-        },
-        computed: {
-            current_lng: function () {
-            
-            },
-            current_lat: function () {
-
             }
         },
         mounted () {
@@ -146,7 +140,11 @@ function searchLonLat(){
     
 
     app.longitude = ''; //Makes sure these are reset
-    app.latitude = ''; 
+    app.latitude = '';
+    
+    if(lon == 42){
+        alert("ERROR!");
+    }
 
     console.log(lat +", "+ lon);
 
@@ -154,6 +152,17 @@ function searchLonLat(){
     .bindPopup('Latitude: ' + lat + ", Longitude" + lon)
     .openPopup();
 
+    map.flyTo([lat, lon]);
+
+}
+
+function updateCenterCoordinates() {
+    let center = map.getCenter() //Gets the center latlng once stop pane
+    let lat = center.lat;
+    let lon = center.lng;
+
+    app.centerLat = 'Center Latitude: ' + lat;
+    app.centerLng = 'Center Longitude: ' + lon;
 }
 
 function getRestOptions(type, neighborhoodName, startDate, endDate, startTime, endTime, limit){
