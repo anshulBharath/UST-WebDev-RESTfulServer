@@ -68,76 +68,78 @@
           <h3 id="ui_controls_title">Data Filters</h3>
           <fieldset class="fieldset">
           <div id="ui_controls_container" class="grid-x">
-            <div class="cell small-3">
-              <fieldset class="fieldset" id="incident_type_fieldset">
-                <legend>Incident Type</legend>
-                <input id="incident_Type_checkbox_1" type="checkbox"><label for="incident_Type_checkbox_1" value="">Murder</label> <br>
-                <input id="incident_Type_checkbox_2" type="checkbox"><label for="incident_Type_checkbox_2">Rape</label> <br>
-                <input id="incident_Type_checkbox_3" type="checkbox"><label for="incident_Type_checkbox_3">Robbery</label> <br>
-                <input id="incident_Type_checkbox_4" type="checkbox"><label for="incident_Type_checkbox_4">Aggravated Assault</label> <br>
-                <input id="incident_Type_checkbox_5" type="checkbox"><label for="incident_Type_checkbox_5">Burglary</label> <br>
-                <input id="incident_Type_checkbox_6" type="checkbox"><label for="incident_Type_checkbox_6">Theft</label> <br>
-                <input id="incident_Type_checkbox_7" type="checkbox"><label for="incident_Type_checkbox_7">Motor Vehicle Theft</label> <br>
-                <input id="incident_Type_checkbox_8" type="checkbox"><label for="incident_Type_checkbox_8">Assault</label> <br>
-                <input id="incident_Type_checkbox_9" type="checkbox"><label for="incident_Type_checkbox_9">Arson</label> <br>
-                <input id="incident_Type_checkbox_10" type="checkbox"><label for="incident_Type_checkbox_10">Criminal Damage to Property</label> <br>
-                <input id="incident_Type_checkbox_11" type="checkbox"><label for="incident_Type_checkbox_11">Graffiti</label> <br>
-                <input id="incident_Type_checkbox_12" type="checkbox"><label for="incident_Type_checkbox_12">Narcotics</label> <br>
-                <input id="incident_Type_checkbox_13" type="checkbox"><label for="incident_Type_checkbox_13">Weapons</label> <br>
-                <input id="incident_Type_checkbox_14" type="checkbox"><label for="incident_Type_checkbox_14">Investigation of Death</label> <br>
-                <input id="incident_Type_checkbox_15" type="checkbox"><label for="incident_Type_checkbox_15">Proactive Police Visit</label> <br>
-                <input id="incident_Type_checkbox_16" type="checkbox"><label for="incident_Type_checkbox_16">Community Engagement Event</label> <br>
-                <input id="incident_Type_checkbox_17" type="checkbox"><label for="incident_Type_checkbox_17">Proactive Foot Patrol</label> <br>
-              </fieldset>
-            </div>
-            <div class="cell small-3">
-              <fieldset class="fieldset" id="neighborhood_name_fieldset">
-                <legend>Neighborhood Name</legend>
-                <input id="neighborhood_name_checkbox_1" type="checkbox"><label for="neighborhood_name_checkbox_1">Conway/Battlecreek/Highwood</label> <br>
-                <input id="neighborhood_name_checkbox_2" type="checkbox"><label for="neighborhood_name_checkbox_2">Greater East Side</label> <br>
-                <input id="neighborhood_name_checkbox_3" type="checkbox"><label for="neighborhood_name_checkbox_3">West Side</label> <br>
-                <input id="neighborhood_name_checkbox_4" type="checkbox"><label for="neighborhood_name_checkbox_4">Dayton's Bluff</label> <br>
-                <input id="neighborhood_name_checkbox_5" type="checkbox"><label for="neighborhood_name_checkbox_5">Payne/Phalen</label> <br>
-                <input id="neighborhood_name_checkbox_6" type="checkbox"><label for="neighborhood_name_checkbox_6">North End</label> <br>
-                <input id="neighborhood_name_checkbox_7" type="checkbox"><label for="neighborhood_name_checkbox_7">Thomas/Dale(Frogtown)</label> <br>
-                <input id="neighborhood_name_checkbox_8" type="checkbox"><label for="neighborhood_name_checkbox_8">Summit/University</label> <br>
-                <input id="neighborhood_name_checkbox_9" type="checkbox"><label for="neighborhood_name_checkbox_9">West Seventh</label> <br>
-                <input id="neighborhood_name_checkbox_10" type="checkbox"><label for="neighborhood_name_checkbox_10">Como</label> <br>
-                <input id="neighborhood_name_checkbox_11" type="checkbox"><label for="neighborhood_name_checkbox_11">Hamline/Midway</label> <br>
-                <input id="neighborhood_name_checkbox_12" type="checkbox"><label for="neighborhood_name_checkbox_12">St. Anthony</label> <br>
-                <input id="neighborhood_name_checkbox_13" type="checkbox"><label for="neighborhood_name_checkbox_13">Union Park</label> <br>
-                <input id="neighborhood_name_checkbox_14" type="checkbox"><label for="neighborhood_name_checkbox_14">Macalester-Groveland</label> <br>
-                <input id="neighborhood_name_checkbox_15" type="checkbox"><label for="neighborhood_name_checkbox_15">Highland</label> <br>
-                <input id="neighborhood_name_checkbox_16" type="checkbox"><label for="neighborhood_name_checkbox_16">Summit Hill</label> <br>
-                <input id="neighborhood_name_checkbox_17" type="checkbox"><label for="neighborhood_name_checkbox_17">Capital River</label> <br>
-              </fieldset>
-            </div>
-            <div class="cell small-3">
-              <fieldset class="fieldset" id="date_range_fieldset">
-                <legend>Date Range</legend>
-                <label for="date_range_start_input">Start Date</label>
-                <input id="date_range_start_input" type="date" v-model="query.start_date"> <br>
-                <label for="date_range_end_input">End Date</label>
-                <input id="date_range_end_input" type="date" v-model="query.end_date"> <br>
-              </fieldset>
-              <fieldset class="fieldset" id="time_range_fieldset">
-                <legend>Time Range</legend>
-                <label for="date_range_start_input">Start Time</label>
-                <input id="date_range_start_input" type="time" v-model="query.start_time"> <br>
-                <label for="date_range_end_input">End Time</label>
-                <input id="date_range_end_input" type="time" v-model="query.end_time"> <br>
-              </fieldset>
-            </div>
-            <div class="cell small-3">
-              <fieldset class="fieldset" id="max_number_incidents_fieldset">
-                <legend>Maximum Number of Incidents</legend>
-                <label for="date_range_start_input">Limit</label>
-                <input id="date_range_start_input" type="number" v-model='query.limit'> <br>
-              </fieldset>
-              <fieldset class="fieldset" id="submit_fieldset">
-                <legend>Submit Filters to Update Table</legend>
-                <input type="submit" class="button" value="Submit" onclick="filterIncidents()">
-              </fieldset>
+              <div class="cell small-3">
+                <fieldset class="fieldset" id="incident_type_fieldset">
+                  <legend>Incident Type</legend>
+                  <input id="Murder" value="Murder" type="checkbox" v-model="query.incident_type"><label for="Murder" value="">Murder</label> <br>
+                  <input id="Rape" value="Rape" type="checkbox" v-model="query.incident_type"><label for="Rape">Rape</label> <br>
+                  <input id="Robbery" value="Robbery" type="checkbox" v-model="query.incident_type"><label for="Robbery">Robbery</label> <br>
+                  <input id="Aggravated Assault" value="Aggravated Assault" type="checkbox" v-model="query.incident_type"><label for="Aggravated Assault">Aggravated Assault</label> <br>
+                  <input id="Burglary" value="Burglary" type="checkbox" v-model="query.incident_type"><label for="Burglary">Burglary</label> <br>
+                  <input id="Theft" value="Theft" type="checkbox" v-model="query.incident_type"><label for="Theft">Theft</label> <br>
+                  <input id="Motor Vehicle Theft" value="Motor Vehicle Theft" type="checkbox" v-model="query.incident_type"><label for="Motor Vehicle Theft">Motor Vehicle Theft</label> <br>
+                  <input id="Assault" value="Assault" type="checkbox" v-model="query.incident_type"><label for="Assault">Assault</label> <br>
+                  <input id="Arson" value="Arson" type="checkbox" v-model="query.incident_type"><label for="Arson">Arson</label> <br>
+                  <input id="Criminal Damage to Property" value="Criminal Damage to Property" type="checkbox" v-model="query.incident_type"><label for="Criminal Damage to Property">Criminal Damage to Property</label> <br>
+                  <input id="Graffiti" value="Graffiti" type="checkbox" v-model="query.incident_type"><label for="Graffiti">Graffiti</label> <br>
+                  <input id="Narcotics" value="Narcotics" type="checkbox" v-model="query.incident_type"><label for="Narcotics">Narcotics</label> <br>
+                  <input id="Weapons" value="Weapons" type="checkbox" v-model="query.incident_type"><label for="Weapons">Weapons</label> <br>
+                  <input id="Investigation of Death" value="Investigation of Death" type="checkbox" v-model="query.incident_type"><label for="Investigation of Death">Investigation of Death</label> <br>
+                  <input id="Proactive Police Visit" value="Proactive Police Visit" type="checkbox" v-model="query.incident_type"><label for="Proactive Police Visit">Proactive Police Visit</label> <br>
+                  <input id="Community Engagement Event" value="Community Engagement Event" type="checkbox" v-model="query.incident_type"><label for="Community Engagement Event">Community Engagement Event</label> <br>
+                  <input id="Proactive Foot Patrol" value="Proactive Foot Patrol" type="checkbox" v-model="query.incident_type"><label for="Proactive Foot Patrol">Proactive Foot Patrol</label> <br>
+                </fieldset>
+              </div>
+              <div class="cell small-3">
+                <fieldset class="fieldset" id="neighborhood_name_fieldset">
+                  <legend>Neighborhood Name</legend>
+                  <input id="Conway/Battlecreek/Highwood" value="1" type="checkbox" v-model="query.neighborhood_name"><label for="Conway/Battlecreek/Highwood">Conway/Battlecreek/Highwood</label> <br>
+                  <input id="Greater East Side" value="2" type="checkbox" v-model="query.neighborhood_name"><label for="Greater East Side">Greater East Side</label> <br>
+                  <input id="West Side" value="3" type="checkbox" v-model="query.neighborhood_name"><label for="West Side">West Side</label> <br>
+                  <input id="Dayton's Bluff" value="4" type="checkbox" v-model="query.neighborhood_name"><label for="Dayton's Bluff">Dayton's Bluff</label> <br>
+                  <input id="Payne/Phalen" value="5" type="checkbox" v-model="query.neighborhood_name"><label for="Payne/Phalen">Payne/Phalen</label> <br>
+                  <input id="North End" value="6" type="checkbox" v-model="query.neighborhood_name"><label for="North End">North End</label> <br>
+                  <input id="Thomas/Dale(Frogtown)" value="7" type="checkbox" v-model="query.neighborhood_name"><label for="Thomas/Dale(Frogtown)">Thomas/Dale(Frogtown)</label> <br>
+                  <input id="Summit/University" value="8" type="checkbox" v-model="query.neighborhood_name"><label for="Summit/University">Summit/University</label> <br>
+                  <input id="West Seventh" value="9" type="checkbox" v-model="query.neighborhood_name"><label for="West Seventh">West Seventh</label> <br>
+                  <input id="Como" value="10" type="checkbox" v-model="query.neighborhood_name"><label for="Como">Como</label> <br>
+                  <input id="Hamline/Midway" value="11" type="checkbox" v-model="query.neighborhood_name"><label for="Hamline/Midway">Hamline/Midway</label> <br>
+                  <input id="St. Anthony" value="12" type="checkbox" v-model="query.neighborhood_name"><label for="St. Anthony">St. Anthony</label> <br>
+                  <input id="Union Park" value="13" type="checkbox" v-model="query.neighborhood_name"><label for="Union Park">Union Park</label> <br>
+                  <input id="Macalester-Groveland" value="14" type="checkbox" v-model="query.neighborhood_name"><label for="Macalester-Groveland">Macalester-Groveland</label> <br>
+                  <input id="Highland" value="15" type="checkbox" v-model="query.neighborhood_name"><label for="Highland">Highland</label> <br>
+                  <input id="Summit Hill" value="16" type="checkbox" v-model="query.neighborhood_name"><label for="Summit Hill">Summit Hill</label> <br>
+                  <input id="Capital River" value="17" type="checkbox" v-model="query.neighborhood_name"><label for="neighborhood_name_checkbox_17">Capital River</label> <br>
+                  <span>{{ query.neighborhood_name }} </span>
+                </fieldset>
+              </div>
+              <div class="cell small-3">
+                <fieldset class="fieldset" id="date_range_fieldset">
+                  <legend>Date Range</legend>
+                  <label for="date_range_start_input">Start Date</label>
+                  <input id="date_range_start_input" type="date" v-model="query.start_date"> <br>
+                  <label for="date_range_end_input">End Date</label>
+                  <input id="date_range_end_input" type="date" v-model="query.end_date"> <br>
+                </fieldset>
+                <fieldset class="fieldset" id="time_range_fieldset">
+                  <legend>Time Range</legend>
+                  <label for="date_range_start_input">Start Time</label>
+                  <input id="date_range_start_input" type="time" v-model="query.start_time"> <br>
+                  <label for="date_range_end_input">End Time</label>
+                  <input id="date_range_end_input" type="time" v-model="query.end_time"> <br>
+                </fieldset>
+              </div>
+              <div class="cell small-3">
+                <fieldset class="fieldset" id="max_number_incidents_fieldset">
+                  <legend>Maximum Number of Incidents</legend>
+                  <label for="date_range_start_input">Limit</label>
+                  <input id="date_range_start_input" type="number" v-model='query.limit'> <br>
+                </fieldset>
+                <fieldset class="fieldset" id="submit_fieldset">
+                  <legend>Submit Filters to Update Table</legend>
+                  <input type="submit" class="button" value="Submit" onclick="filterIncidents()">
+                </fieldset>
+              
               <fieldset id="legend" class="fieldset">
                 <legend id="legend_title">Color Legend</legend>
                 <p class="legend_text">Violent Crimes: </p> <p id="violent_crimes_legend_color_block">||||</p> <br>
