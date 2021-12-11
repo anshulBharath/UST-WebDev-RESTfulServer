@@ -63,6 +63,40 @@ app.get('/codes',(req, res) => {
             res.status(200).type('json').send(rows);
         });
     }
+    else if(req.query.code_name != null) {
+        let query_rows = req.query.code_name.split(',');
+        
+        console.log("query rows: " + query_rows);
+
+        let tempString = '\'%' + query_rows[0] + '%\'';
+        console.log(tempString);
+        let query_promise = new Promise((resolve, reject) => {
+            query_rows.forEach(code => {
+                let tempString = '\'%' + code + '%\'';
+
+                let queryString = 'SELECT * FROM Codes WHERE incident_type LIKE ' + tempString + ';';
+                //let queryString = 'SELECT * from Codes WHERE instr(\"incident_type\", \"' + code + '\") > 1;';
+
+                console.log(queryString);
+
+                db.all(queryString, (err, rows) => {
+                    if(err || typeof rows == 'undefined') {
+                        reject('Not a valid Code Name: ' + code);
+                    }
+                    else {
+                        resolve(rows);
+                    }
+                });
+            });
+        });
+
+        query_promise.then( (data) => {
+            res.status(200).type('json').send(data);
+        }).catch((error) => {
+            console.log(error)
+            res.status(404).send("404 File Not Found - " + error);
+        });
+    }
     else {
         let query_rows = req.query.code.split(',');
         
