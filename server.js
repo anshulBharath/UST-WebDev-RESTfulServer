@@ -205,12 +205,11 @@ app.get('/incidents', (req, res) => {
     }
 
     if(startEndDateQuery.length === 0){
-        query += selectStatement + codeQuery + ' AND ' + gridQuery + ' AND ' + hoodQuery + ' ORDER BY date_time ' + limitQuery;
+        query += selectStatement + codeQuery + ' AND ' + gridQuery + ' AND ' + hoodQuery + ' ORDER BY date_time DESC ' + limitQuery;
     }
     else {
-        query += selectStatement + startEndDateQuery + ' AND ' + codeQuery + ' AND ' + gridQuery + ' AND ' + hoodQuery + ' ORDER BY date_time ' + limitQuery;
+        query += selectStatement + startEndDateQuery + ' AND ' + codeQuery + ' AND ' + gridQuery + ' AND ' + hoodQuery + ' ORDER BY date_time DESC ' + limitQuery;
     }
-
 
     console.log(query);
 
