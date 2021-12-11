@@ -42,7 +42,7 @@
                   <input type="text" placeholder="Street Number" v-model="streetNumber"> <br>
                   <p> {{streetName }}</p>
                   <input type="text" placeholder="Street Name" v-model="streetName"> <br>
-                  <button  class="button">Search</button> <!-- v-on:click="searchAddress"-->
+                  <button  class="button" onclick="searchAddress()">Search</button> <!-- v-on:click="searchAddress"-->
                 </fieldset>
               </div>
               <div class="cell small-2">
@@ -56,9 +56,9 @@
               <div class="cell small-5">
                 <fieldset class="fieldset">
                   <legend>Search By Longitude & Latitude</legend>
-                  <input type="text" :placeholder="current_lng" v-model="longitude"> <br>
-                  <input type="text" :placeholder="current_lat" v-model="latitude"> <br>
-                  <button class="button">Search</button>
+                  <input type="text" placeholder="Latitude" v-model="latitude"> <br>
+                  <input type="text" placeholder="Longitude" v-model="longitude"> <br>
+                  <button class="button" onclick="searchLonLat()">Search</button>
                 </fieldset>
               </div>
         </div>

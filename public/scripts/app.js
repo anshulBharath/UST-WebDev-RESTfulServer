@@ -111,3 +111,51 @@ function getJSON(url) {
         });
     });
 }
+
+function searchAddress(){
+    console.log(app.streetNumber + " " + app.streetName);
+    let streetNum = app.streetNumber;
+    let streetAddress = app.streetName;
+    
+
+    app.streetNumber = ''; //Makes sure these are reset
+    app.streetName = ''; 
+
+    var url = "https://nominatim.openstreetmap.org/search?street=" + streetNum + " " + streetAddress + "&format=json&accept-language=en";
+
+    let promise = getJSON(url);
+
+    promise.then((data) => {
+        let lon = data[0].lon;
+        let lat = data[0].lat;
+
+        console.log(lat +", "+ lon);
+        L.marker([lat, lon]).addTo(map)
+        .bindPopup('' + streetNum + " " + streetAddress)
+        .openPopup();
+
+    }).catch((error) => {
+        console.log(error);
+    }); 
+}
+
+function searchLonLat(){
+    console.log(app.latitude + " " + app.longitude);
+    let lon = app.longitude;
+    let lat = app.latitude;
+    
+
+    app.longitude = ''; //Makes sure these are reset
+    app.latitude = ''; 
+
+    console.log(lat +", "+ lon);
+
+    L.marker([lat, lon]).addTo(map)
+    .bindPopup('Latitude: ' + lat + ", Longitude" + lon)
+    .openPopup();
+
+}
+
+function getRestOptions(type, neighborhoodName, startDate, endDate, startTime, endTime, limit){
+    
+}
