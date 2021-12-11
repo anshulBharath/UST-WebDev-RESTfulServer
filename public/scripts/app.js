@@ -78,7 +78,7 @@ function init() {
         //}
     });
 
-    let initialDate = getJSON('http://localhost:8000/incidents');
+    let initialDate = getJSON(crime_url + '/incidents');
     initialDate.then((data) => {
             app.info = data;
     }).catch((error) => {
@@ -121,6 +121,9 @@ function getJSON(url) {
     });
 }
 
+/** 
+ * Function for putting a marker on the map with the given search. Hooked to 'GO' button in Search By Address
+ */
 function searchAddress(){
     console.log(app.streetNumber + " " + app.streetName);
     let streetNum = app.streetNumber;
@@ -148,6 +151,10 @@ function searchAddress(){
     }); 
 }
 
+/** 
+ * Function for putting a marker on the map with the given longitude/latitude search. 
+ * Hooked to 'GO' button in Search By Longitude & Latitude
+ */
 function searchLonLat(){
     console.log(app.latitude + " " + app.longitude);
     let lon = app.longitude;
@@ -171,6 +178,9 @@ function searchLonLat(){
 
 }
 
+/**
+ * Updates the center coordinates. Bound to places holder of longitude and latitude text input
+ */
 function updateCenterCoordinates() {
     let center = map.getCenter() //Gets the center latlng once stop pane
     let lat = center.lat;
@@ -180,6 +190,9 @@ function updateCenterCoordinates() {
     app.centerLng = 'Center Longitude: ' + lon;
 }
 
+/**
+ * This run a query to our REST server.
+ */
 function filterIncidents(){
     let incidentType = app.query.incident_type; //Will be an array
     let neighborhood = app.query.neighborhood_name; //Will be an array
@@ -210,6 +223,9 @@ function filterIncidents(){
     });
 }
 
+/**
+ * Returns a string of the url that we will use to query to our REST server 
+ */
 function creatUrlForQuery(codes, neighborhoods, limit, startDate, endDate, startTime, endTime) {
     let url = "http://localhost:8000/incidents?" //String length 32
 
