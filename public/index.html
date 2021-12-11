@@ -30,7 +30,10 @@
 <body onload="init()">
     <!-- Main app -->
     <div id="app">
-        <div id="leafletmap"></div>
+      <br/>
+      <br/>
+      
+      <div id="leafletmap" onmouseup="updateCenterCoordinates()" onwheel="updateCenterCoordinates()"></div>
 
         <div id="table_container">
           <h3 id="ui_controls_title">Location Search</h3>
@@ -40,7 +43,7 @@
                   <legend>Search By Address</legend>
                   <input type="text" placeholder="Street Number" v-model="streetNumber"> <br>
                   <input type="text" placeholder="Street Name" v-model="streetName"> <br>
-                  <button v-on:click="searchAddress" class="button">Search</button>
+                  <button  class="button" onclick="searchAddress()">GO</button> <!-- v-on:click="searchAddress"-->
                 </fieldset>
               </div>
               <div class="cell small-2">
@@ -54,9 +57,9 @@
               <div class="cell small-5">
                 <fieldset class="fieldset">
                   <legend>Search By Longitude & Latitude</legend>
-                  <input type="text" placeholder="Longitude" v-model="longitude"> <br>
-                  <input type="text" placeholder="Latitude" v-model="latitude"> <br>
-                  <button v-on:click="searchAddress" class="button">Search</button>
+                  <input type="text" :placeholder="centerLat" v-model="latitude"> <br>
+                  <input type="text" :placeholder="centerLng" v-model="longitude"> <br>
+                  <button class="button" onclick="searchLonLat()">GO</button>
                 </fieldset>
               </div>
         </div>
@@ -68,7 +71,7 @@
             <div class="cell small-3">
               <fieldset class="fieldset" id="incident_type_fieldset">
                 <legend>Incident Type</legend>
-                <input id="incident_Type_checkbox_1" type="checkbox"><label for="incident_Type_checkbox_1">Murder</label> <br>
+                <input id="incident_Type_checkbox_1" type="checkbox"><label for="incident_Type_checkbox_1" value="">Murder</label> <br>
                 <input id="incident_Type_checkbox_2" type="checkbox"><label for="incident_Type_checkbox_2">Rape</label> <br>
                 <input id="incident_Type_checkbox_3" type="checkbox"><label for="incident_Type_checkbox_3">Robbery</label> <br>
                 <input id="incident_Type_checkbox_4" type="checkbox"><label for="incident_Type_checkbox_4">Aggravated Assault</label> <br>
@@ -113,27 +116,27 @@
               <fieldset class="fieldset" id="date_range_fieldset">
                 <legend>Date Range</legend>
                 <label for="date_range_start_input">Start Date</label>
-                <input id="date_range_start_input" type="date"> <br>
+                <input id="date_range_start_input" type="date" v-model="query.start_date"> <br>
                 <label for="date_range_end_input">End Date</label>
-                <input id="date_range_end_input" type="date"> <br>
+                <input id="date_range_end_input" type="date" v-model="query.end_date"> <br>
               </fieldset>
               <fieldset class="fieldset" id="time_range_fieldset">
                 <legend>Time Range</legend>
                 <label for="date_range_start_input">Start Time</label>
-                <input id="date_range_start_input" type="time"> <br>
+                <input id="date_range_start_input" type="time" v-model="query.start_time"> <br>
                 <label for="date_range_end_input">End Time</label>
-                <input id="date_range_end_input" type="time"> <br>
+                <input id="date_range_end_input" type="time" v-model="query.end_time"> <br>
               </fieldset>
             </div>
             <div class="cell small-3">
               <fieldset class="fieldset" id="max_number_incidents_fieldset">
                 <legend>Maximum Number of Incidents</legend>
-                <label for="date_range_start_input">Number</label>
-                <input id="date_range_start_input" type="number"> <br>
+                <label for="date_range_start_input">Limit</label>
+                <input id="date_range_start_input" type="number" v-model='query.limit'> <br>
               </fieldset>
               <fieldset class="fieldset" id="submit_fieldset">
                 <legend>Submit Filters to Update Table</legend>
-                <input type="submit" class="button" value="Submit">
+                <input type="submit" class="button" value="Submit" onclick="filterIncidents()">
               </fieldset>
               <fieldset id="legend" class="fieldset">
                 <legend id="legend_title">Color Legend</legend>
@@ -146,7 +149,9 @@
 
             </div>
           </fieldset>
-            <table>
+
+          <div class="grid-container">
+            <table class="table-scroll">
                 <thead>
                   <tr>
                     <th width="150" >Case Number</th>
@@ -172,6 +177,7 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
 
             <!-- {{ info }} -->
 

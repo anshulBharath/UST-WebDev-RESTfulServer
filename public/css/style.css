@@ -85,3 +85,17 @@ thead {
 #middle_or {
     text-align: center;
 }
+
+.table-scroll {
+    width: max-width;
+    display: block;
+    height: 700px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+table th { 
+    position: sticky;
+    top: 0;
+    background: white;
+}
