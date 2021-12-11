@@ -48,8 +48,8 @@ function init() {
             centerLat:'Enter a Latitude',
             centerLng:'Enter a Longitude',
             query: { //Data that will be used to query our RESTful server
-                incident_type: [691, 1430], //Will have to change this to codes, because can't really query incidents by name. Also putting dummy values to test for now
-                neighborhood_name: [17, 16], //Dummy data for testing
+                incident_type: [], //Will have to change this to codes, because can't really query incidents by name. Also putting dummy values to test for now
+                neighborhood_name: [], //Dummy data for testing
                 start_date: '',
                 end_date: '',
                 start_time: '',
