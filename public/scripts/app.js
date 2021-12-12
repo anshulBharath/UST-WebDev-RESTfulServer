@@ -215,7 +215,7 @@ function filterIncidents(){
     let codesArrayPromise = getCodesArray(incidentType);
     codesArrayPromise.then((codesArray) => {
         let url = creatUrlForQuery(codesArray, neighborhood, limit, startDate, endDate, startTime, endTime);
-         console.log(url);
+         console.log('URL: '+ url);
 
         let initialDate = getJSON(url);
         initialDate.then((data) => {
