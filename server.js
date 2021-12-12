@@ -184,6 +184,7 @@ app.get('/incidents', (req, res) => {
     let selectStatement = 'SELECT case_number, DATE(date_time) AS \'date\', TIME(date_time) AS \'time\', code, incident, police_grid, neighborhood_number, block FROM Incidents WHERE ';
     
     let startEndDateQuery = '';
+    let startEndTimeQuery = '';
     let codeQuery = 'code';
     let gridQuery = 'police_grid';
     let hoodQuery = 'neighborhood_number';
@@ -197,6 +198,16 @@ app.get('/incidents', (req, res) => {
     }
     else if(req.query.end_date != null){
         startEndDateQuery +=  'date <= \'' + req.query['end_date'] + '\'';
+    }
+
+    if(req.query.start_time != null && req.query.end_time != null){
+        startEndTimeQuery += 'time >= \'' + req.query['start_time'] + '\' AND time <= \'' + req.query['end_time'] + '\'';
+    }
+    else if(req.query.start_time != null){
+        startEndTimeQuery += 'time >= \'' + req.query['start_time'] + '\'';
+    }
+    else if(req.query.end_time != null){
+        startEndTimeQuery +=  'time <= \'' + req.query['end_time'] + '\'';
     }
 
     if(req.query.limit != null){
@@ -240,11 +251,22 @@ app.get('/incidents', (req, res) => {
         hoodQuery += query_rows[query_rows.length-1] + ')';
     }
 
-    if(startEndDateQuery.length === 0){
+    let timeAndDateQuery = '';
+    if(startEndDateQuery.length > 0 && startEndTimeQuery.length > 0){
+        timeAndDateQuery += startEndDateQuery + ' AND ' + startEndTimeQuery;
+    }
+    else if(startEndDateQuery.length > 0){
+        timeAndDateQuery += startEndDateQuery;
+    }
+    else if(startEndTimeQuery.length > 0){
+        timeAndDateQuery += startEndTimeQuery;
+    }
+
+    if(timeAndDateQuery.length === 0){
         query += selectStatement + codeQuery + ' AND ' + gridQuery + ' AND ' + hoodQuery + ' ORDER BY date_time DESC ' + limitQuery;
     }
     else {
-        query += selectStatement + startEndDateQuery + ' AND ' + codeQuery + ' AND ' + gridQuery + ' AND ' + hoodQuery + ' ORDER BY date_time DESC ' + limitQuery;
+        query += selectStatement + timeAndDateQuery + ' AND ' + codeQuery + ' AND ' + gridQuery + ' AND ' + hoodQuery + ' ORDER BY date_time DESC ' + limitQuery;
     }
 
     console.log(query);

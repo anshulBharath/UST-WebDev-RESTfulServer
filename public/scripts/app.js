@@ -62,7 +62,7 @@ function init() {
                 if(incident_type == "Theft" || incident_type == "Auto Theft" || incident_type == "Burglary" || incident_type == "Vandalism" || incident_type == "Robbery" || incident_type == "Graffiti" || incident_type == "Arson") {
                     return 'propertyCrimesBGColor';
                 }
-                else if(incident_type == "Simple Asasult Dom." || incident_type == "Discharge" || incident_type == "Agg. Assault Dom." || incident_type == "Agg. Assault" || incident_type == "Rape") {
+                else if(incident_type == "Murder" || incident_type == "Homicide" || incident_type == "Simple Asasult Dom." || incident_type == "Discharge" || incident_type == "Agg. Assault Dom." || incident_type == "Agg. Assault" || incident_type == "Rape") {
                     return 'violentCrimesBGColor'
                 }
                 else {
@@ -215,7 +215,7 @@ function filterIncidents(){
     let codesArrayPromise = getCodesArray(incidentType);
     codesArrayPromise.then((codesArray) => {
         let url = creatUrlForQuery(codesArray, neighborhood, limit, startDate, endDate, startTime, endTime);
-         console.log(url);
+         console.log('URL: '+ url);
 
         let initialDate = getJSON(url);
         initialDate.then((data) => {
@@ -236,6 +236,10 @@ function getCodesArray(incidentTypes){
         incidentTypes.forEach(incident => {
             url += incident + ',';
         });
+
+        if(incidentTypes.includes('Murder')){
+            retCodes.push(100);  
+        }
         
         url = url.slice(0,-1);
 
