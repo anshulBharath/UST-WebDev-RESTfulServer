@@ -70,12 +70,6 @@ function init() {
                 }
             }
         }
-        //mounted () {
-            //axios
-              //.get('http://localhost:8000/incidents')
-              //.then(response => (this.info = response.data))
-              //.then(response => (console.log(response.data)))
-        //}
     });
 
     let initialDate = getJSON(crime_url + '/incidents');
@@ -125,15 +119,17 @@ function getJSON(url) {
  * Function for putting a marker on the map with the given search. Hooked to 'GO' button in Search By Address
  */
 function searchAddress(){
-    console.log(app.streetNumber + " " + app.streetName);
     let streetNum = app.streetNumber;
     let streetAddress = app.streetName;
     
-
     app.streetNumber = ''; //Makes sure these are reset
-    app.streetName = ''; 
+    app.streetName = '';
+    
+    streetNum = streetNum.replaceAll('X', 0);
 
-    var url = "https://nominatim.openstreetmap.org/search?street=" + streetNum + " " + streetAddress + "&format=json&accept-language=en";
+    console.log(streetNum + " " + streetAddress);
+
+    var url = "https://nominatim.openstreetmap.org/search?street=" + streetNum + " " + streetAddress + "&city=St.Paul&State=Minnesota&format=json&accept-language=en";
 
     let promise = getJSON(url);
 
@@ -146,6 +142,8 @@ function searchAddress(){
         .bindPopup('' + streetNum + " " + streetAddress)
         .openPopup();
 
+        map.flyTo([lat, lon], 15);
+
     }).catch((error) => {
         console.log(error);
     }); 
@@ -156,7 +154,6 @@ function searchAddress(){
  * Hooked to 'GO' button in Search By Longitude & Latitude
  */
 function searchLonLat(){
-    console.log(app.latitude + " " + app.longitude);
     let lon = app.longitude;
     let lat = app.latitude;
     
@@ -174,7 +171,7 @@ function searchLonLat(){
     .bindPopup('Latitude: ' + lat + ", Longitude" + lon)
     .openPopup();
 
-    map.flyTo([lat, lon]);
+    map.flyTo([lat, lon], 15);
 
 }
 
@@ -263,7 +260,6 @@ function creatUrlForQuery(codes, neighborhoods, limit, startDate, endDate, start
     let url = "http://localhost:8000/incidents?" //String length 32
 
     let tempString = '';
-    console.log('Codes: ' + codes);
 
     if(codes.length > 0){
         tempString += 'code='
