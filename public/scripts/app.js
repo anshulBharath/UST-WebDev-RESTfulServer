@@ -212,15 +212,44 @@ function filterIncidents(){
     console.log("Start Time: " + startTime);
     console.log("End Time: " + endTime);
 
-    let url = creatUrlForQuery(incidentType, neighborhood, limit, startDate, endDate, startTime, endTime);
-    console.log(url);
+    let codesArrayPromise = getCodesArray(incidentType);
+    codesArrayPromise.then((codesArray) => {
+        let url = creatUrlForQuery(codesArray, neighborhood, limit, startDate, endDate, startTime, endTime);
+         console.log(url);
 
-    let initialDate = getJSON(url);
-    initialDate.then((data) => {
+        let initialDate = getJSON(url);
+        initialDate.then((data) => {
             app.info = data;
-    }).catch((error) => {
-        console.log('Error:', error);
-    });
+        }).catch((error) => {
+            console.log('Error:', error);
+        });
+    });  
+}
+/**
+ * Takes in a list of incident types and returns an array with all the codes associated with those incidents as an array.
+ */
+function getCodesArray(incidentTypes){
+    let retCodes = [];
+    let url = 'http://localhost:8000/codes?code_name='
+
+    return new Promise((resolve, reject) => {
+        incidentTypes.forEach(incident => {
+            url += incident + ',';
+        });
+        
+        url = url.slice(0,-1);
+
+        let codesQuery = getJSON(url);
+        
+        codesQuery.then((query_rows) => {
+            query_rows.forEach(row => {
+                retCodes.push(row.code);
+            });
+            resolve(retCodes);
+        }).catch((error) => {
+            reject(error);
+        });
+    }); 
 }
 
 /**
@@ -230,6 +259,7 @@ function creatUrlForQuery(codes, neighborhoods, limit, startDate, endDate, start
     let url = "http://localhost:8000/incidents?" //String length 32
 
     let tempString = '';
+    console.log('Codes: ' + codes);
 
     if(codes.length > 0){
         tempString += 'code='
