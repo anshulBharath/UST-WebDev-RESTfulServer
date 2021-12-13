@@ -22,6 +22,11 @@ let neighborhood_markers =
     {location: [44.949203, -93.093739], marker: null, number: 17, name: ''}
 ];
 
+var myIcon = L.icon({
+    iconUrl: '/imgs/crime_icon.png',
+    iconAnchor: [15, 0]
+});
+
 function init() {
     let crime_url = 'http://localhost:8000';
 
@@ -72,7 +77,44 @@ function init() {
                 else {
                     return 'otherCrimesBGColor'
                 }
+            },
+            goToTableRowOnMap(incident_block, incident_date, incident_time, incident_type) {
+                console.log(incident_block);
+                incident_block_split = incident_block.split(" ");
+                console.log(incident_block_split);
+                incident_block_split[0] = incident_block_split[0].replaceAll('X', '0');
+                console.log(incident_block_split);
+
+                let streetNum = incident_block_split[0];
+                let streetAddress = '';
+
+                for(i=1; i<incident_block_split.length; i++) {
+                    streetAddress = streetAddress + incident_block_split[i] + ' ';
+                }
+                
+                console.log(streetAddress);
+            
+                var url = "https://nominatim.openstreetmap.org/search?street=" + streetNum + " " + streetAddress + "&format=json&accept-language=en";
+            
+                let promise = getJSON(url);
+            
+                promise.then((data) => {
+                    let lon = data[0].lon;
+                    let lat = data[0].lat;
+            
+                    console.log(lat +", "+ lon);
+                    L.marker([lat, lon], {icon: myIcon}).addTo(map)
+                    .bindPopup('' + streetNum + " " + streetAddress + "<br>" + incident_date + "<br>" + incident_time + "<br>" + incident_type)
+                    .openPopup();
+                    //scrollTo(0,0);
+            
+                }).catch((error) => {
+                    console.log(error);
+                }); 
+                
+                
             }
+
         }
     });
 
