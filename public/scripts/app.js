@@ -3,23 +3,23 @@ let app;
 let map;
 let neighborhood_markers = 
 [
-    {location: [44.942068, -93.020521], marker: null},
-    {location: [44.977413, -93.025156], marker: null},
-    {location: [44.931244, -93.079578], marker: null},
-    {location: [44.956192, -93.060189], marker: null},
-    {location: [44.978883, -93.068163], marker: null},
-    {location: [44.975766, -93.113887], marker: null},
-    {location: [44.959639, -93.121271], marker: null},
-    {location: [44.947700, -93.128505], marker: null},
-    {location: [44.930276, -93.119911], marker: null},
-    {location: [44.982752, -93.147910], marker: null},
-    {location: [44.963631, -93.167548], marker: null},
-    {location: [44.973971, -93.197965], marker: null},
-    {location: [44.949043, -93.178261], marker: null},
-    {location: [44.934848, -93.176736], marker: null},
-    {location: [44.913106, -93.170779], marker: null},
-    {location: [44.937705, -93.136997], marker: null},
-    {location: [44.949203, -93.093739], marker: null}
+    {location: [44.942068, -93.020521], marker: null, number: 1, name: 'Conway/Battlecreek/Highwood'},
+    {location: [44.977413, -93.025156], marker: null, number: 2, name: 'Greater East Side'},
+    {location: [44.931244, -93.079578], marker: null, number: 3, name: ''},
+    {location: [44.956192, -93.060189], marker: null, number: 4, name: ''},
+    {location: [44.978883, -93.068163], marker: null, number: 5, name: ''},
+    {location: [44.975766, -93.113887], marker: null, number: 6, name: ''},
+    {location: [44.959639, -93.121271], marker: null, number: 7, name: ''},
+    {location: [44.947700, -93.128505], marker: null, number: 8, name: ''},
+    {location: [44.930276, -93.119911], marker: null, number: 9, name: ''},
+    {location: [44.982752, -93.147910], marker: null, number: 10, name: ''},
+    {location: [44.963631, -93.167548], marker: null, number: 11, name: ''},
+    {location: [44.973971, -93.197965], marker: null, number: 12, name: ''},
+    {location: [44.949043, -93.178261], marker: null, number: 13, name: ''},
+    {location: [44.934848, -93.176736], marker: null, number: 14, name: ''},
+    {location: [44.913106, -93.170779], marker: null, number: 15, name: ''},
+    {location: [44.937705, -93.136997], marker: null, number: 16, name: ''},
+    {location: [44.949203, -93.093739], marker: null, number: 17, name: ''}
 ];
 
 var myIcon = L.icon({
@@ -52,6 +52,10 @@ function init() {
             latitude:'',
             centerLat:'Enter a Latitude',
             centerLng:'Enter a Longitude',
+            northEast: '',
+            northWest: '',
+            southEast: '',
+            southWest: '',
             query: { //Data that will be used to query our RESTful server
                 incident_type: [], //Will have to change this to codes, because can't really query incidents by name. Also putting dummy values to test for now
                 neighborhood_name: [], //Dummy data for testing
@@ -112,12 +116,6 @@ function init() {
             }
 
         }
-        //mounted () {
-            //axios
-              //.get('http://localhost:8000/incidents')
-              //.then(response => (this.info = response.data))
-              //.then(response => (console.log(response.data)))
-        //}
     });
 
     let initialDate = getJSON(crime_url + '/incidents');
@@ -146,6 +144,9 @@ function init() {
     }).catch((error) => {
         console.log('Error:', error);
     });
+
+    initNeighborhoodTotalCrimes();
+    getTotalCrimesPerHood();
 }
 
 function getJSON(url) {
@@ -163,19 +164,51 @@ function getJSON(url) {
     });
 }
 
+function getTotalCrimesPerHood(){
+    return new Promise((resolve, reject) => {
+        let num = 0;
+        neighborhood_markers.forEach(hood => {
+            let url = "http://localhost:8000/incidents?neighborhood=" + hood.number + "&limit=400000";
+            //console.log('URL: '+ url);
+   
+           let hoodIncidents = getJSON(url);
+
+           hoodIncidents.then((Data) => {
+               hood.marker = Data.length;
+               num++;
+               if(num >= 17){
+                   resolve(num);
+               }
+           });
+        });
+    });
+}
+
+function initNeighborhoodTotalCrimes() {
+    
+    let initTotalCrimes = getTotalCrimesPerHood();
+
+    initTotalCrimes.then((data) => {
+        neighborhood_markers.forEach(hood => {
+            L.marker(hood.location).addTo(map)
+            .bindPopup("NeighborHood: " + hood.name + '\nTotal Crimes: ' + hood.marker);
+            //.openPopup();
+        });
+    });
+}
+
 /** 
  * Function for putting a marker on the map with the given search. Hooked to 'GO' button in Search By Address
  */
 function searchAddress(){
-    console.log(app.streetNumber + " " + app.streetName);
     let streetNum = app.streetNumber;
     let streetAddress = app.streetName;
     
+    streetNum = streetNum.replaceAll('X', 0);
 
-    app.streetNumber = ''; //Makes sure these are reset
-    app.streetName = ''; 
+    console.log(streetNum + " " + streetAddress);
 
-    var url = "https://nominatim.openstreetmap.org/search?street=" + streetNum + " " + streetAddress + "&format=json&accept-language=en";
+    var url = "https://nominatim.openstreetmap.org/search?street=" + streetNum + " " + streetAddress + "&city=St.Paul&State=Minnesota&format=json&accept-language=en";
 
     let promise = getJSON(url);
 
@@ -184,11 +217,29 @@ function searchAddress(){
         let lat = data[0].lat;
 
         console.log(lat +", "+ lon);
+
+        if(lat < 44.8883383134382 || lat > 44.99159144730164){ //Have to change to error out if out of bounds, have to do this in searchAddress() as well
+            alert("ERROR! This Location is outside of St. Paul");
+            return;
+        }
+    
+        if(lon < -93.20744225904383 || lon > -93.0043790042584){
+            alert("ERROR! This Location is outside of St. Paul");
+            return;
+        }
+
+        app.streetNumber = ''; //Makes sure these are reset
+        app.streetName = '';
+
+        
         L.marker([lat, lon]).addTo(map)
         .bindPopup('' + streetNum + " " + streetAddress)
         .openPopup();
 
+        map.flyTo([lat, lon], 15);
+
     }).catch((error) => {
+        alert("ERROR! This Location is outside of St. Paul or Invalid");
         console.log(error);
     }); 
 }
@@ -198,17 +249,25 @@ function searchAddress(){
  * Hooked to 'GO' button in Search By Longitude & Latitude
  */
 function searchLonLat(){
-    console.log(app.latitude + " " + app.longitude);
     let lon = app.longitude;
     let lat = app.latitude;
     
+    lon = parseFloat(lon);
+    lat = parseFloat(lat)
+
+    if(lat < 44.8883383134382 || lat > 44.99159144730164){ //Have to change to error out if out of bounds, have to do this in searchAddress() as well
+        alert("ERROR! Invalid Latitude: " + lat + "\nPlease enter a latitude between 44.888338 and 44.991591");
+        return;
+    }
+
+    if(lon < -93.20744225904383 || lon > -93.0043790042584){
+        alert("ERROR! Invalid Longitude: " + lon + "\nPlease enter a latitude between -93.207442 and -93.004379");
+        return;
+    }
+
 
     app.longitude = ''; //Makes sure these are reset
     app.latitude = '';
-    
-    if(lon == 42){ //Have to change to error out if out of bounds, have to do this in searchAddress() as well
-        alert("ERROR!");
-    }
 
     console.log(lat +", "+ lon);
 
@@ -216,7 +275,7 @@ function searchLonLat(){
     .bindPopup('Latitude: ' + lat + ", Longitude" + lon)
     .openPopup();
 
-    map.flyTo([lat, lon]);
+    map.flyTo([lat, lon], 15);
 
 }
 
@@ -228,8 +287,27 @@ function updateCenterCoordinates() {
     let lat = center.lat;
     let lon = center.lng;
 
+    //app.northEast = map.getNorthEast().lat;
+    //app.northWest = map.getNorthWest();
+    //app.southEast = map.getSoutEast();
+    //app.southWest = map.getSouthWest();*/
+
     app.centerLat = 'Center Latitude: ' + lat;
     app.centerLng = 'Center Longitude: ' + lon;
+}
+
+function updateNorthEastCoordinates() {
+    let center = map.getCenter() //Gets the center latlng once stop pane
+    let lat = center.lat;
+    let lon = center.lng;
+
+    app.northEast = lat;
+    //app.northWest = map.getNorthWest();
+    //app.southEast = map.getSoutEast();
+    //app.southWest = map.getSouthWest();*/
+
+    //app.centerLat = 'Center Latitude: ' + lat;
+    //app.centerLng = 'Center Longitude: ' + lon;
 }
 
 /**
@@ -305,7 +383,6 @@ function creatUrlForQuery(codes, neighborhoods, limit, startDate, endDate, start
     let url = "http://localhost:8000/incidents?" //String length 32
 
     let tempString = '';
-    console.log('Codes: ' + codes);
 
     if(codes.length > 0){
         tempString += 'code='

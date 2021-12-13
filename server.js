@@ -279,6 +279,7 @@ app.get('/incidents', (req, res) => {
                 reject('Invalid Query');
             }
             else {
+                rows.push('{\"length\":' + rows.length);
                 resolve(rows);
             }
             
