@@ -100,8 +100,31 @@ function init() {
                 let promise = getJSON(url);
             
                 promise.then((data) => {
+                    if(data[0] === undefined){
+                        alert("ERROR! This row is invalid");
+                        return;
+                    }
+                    if(data[0].lon === undefined){
+                        alert("ERROR! This row is invalid");
+                        return;
+                    }
+                    if(data[0].lat === undefined){
+                        alert("ERROR! This row is invalid");
+                        return;
+                    }
+                    
                     let lon = data[0].lon;
                     let lat = data[0].lat;
+
+                    if(lat < 44.8883383134382 || lat > 44.99159144730164){ 
+                        alert("ERROR! This row is invalid");
+                        return;
+                    }
+                
+                    if(lon < -93.20744225904383 || lon > -93.0043790042584){
+                        alert("ERROR! This row is invalid");
+                        return;
+                    }
             
                     console.log(lat +", "+ lon);
                     L.marker([lat, lon], {icon: myIcon}).addTo(map)
