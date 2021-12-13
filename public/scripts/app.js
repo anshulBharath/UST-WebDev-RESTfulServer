@@ -47,6 +47,10 @@ function init() {
             latitude:'',
             centerLat:'Enter a Latitude',
             centerLng:'Enter a Longitude',
+            northEast: '',
+            northWest: '',
+            southEast: '',
+            southWest: '',
             query: { //Data that will be used to query our RESTful server
                 incident_type: [], //Will have to change this to codes, because can't really query incidents by name. Also putting dummy values to test for now
                 neighborhood_name: [], //Dummy data for testing
@@ -122,9 +126,6 @@ function searchAddress(){
     let streetNum = app.streetNumber;
     let streetAddress = app.streetName;
     
-    app.streetNumber = ''; //Makes sure these are reset
-    app.streetName = '';
-    
     streetNum = streetNum.replaceAll('X', 0);
 
     console.log(streetNum + " " + streetAddress);
@@ -138,6 +139,21 @@ function searchAddress(){
         let lat = data[0].lat;
 
         console.log(lat +", "+ lon);
+
+        if(lat < 44.8883383134382 || lat > 44.99159144730164){ //Have to change to error out if out of bounds, have to do this in searchAddress() as well
+            alert("ERROR! This Location is outside of St. Paul");
+            return;
+        }
+    
+        if(lon < -93.20744225904383 || lon > -93.0043790042584){
+            alert("ERROR! This Location is outside of St. Paul");
+            return;
+        }
+
+        app.streetNumber = ''; //Makes sure these are reset
+        app.streetName = '';
+
+        
         L.marker([lat, lon]).addTo(map)
         .bindPopup('' + streetNum + " " + streetAddress)
         .openPopup();
@@ -145,6 +161,7 @@ function searchAddress(){
         map.flyTo([lat, lon], 15);
 
     }).catch((error) => {
+        alert("ERROR! This Location is outside of St. Paul or Invalid");
         console.log(error);
     }); 
 }
@@ -157,13 +174,22 @@ function searchLonLat(){
     let lon = app.longitude;
     let lat = app.latitude;
     
+    lon = parseFloat(lon);
+    lat = parseFloat(lat)
+
+    if(lat < 44.8883383134382 || lat > 44.99159144730164){ //Have to change to error out if out of bounds, have to do this in searchAddress() as well
+        alert("ERROR! Invalid Latitude: " + lat + "\nPlease enter a latitude between 44.888338 and 44.991591");
+        return;
+    }
+
+    if(lon < -93.20744225904383 || lon > -93.0043790042584){
+        alert("ERROR! Invalid Longitude: " + lon + "\nPlease enter a latitude between -93.207442 and -93.004379");
+        return;
+    }
+
 
     app.longitude = ''; //Makes sure these are reset
     app.latitude = '';
-    
-    if(lon == 42){ //Have to change to error out if out of bounds, have to do this in searchAddress() as well
-        alert("ERROR!");
-    }
 
     console.log(lat +", "+ lon);
 
@@ -183,8 +209,27 @@ function updateCenterCoordinates() {
     let lat = center.lat;
     let lon = center.lng;
 
+    //app.northEast = map.getNorthEast().lat;
+    //app.northWest = map.getNorthWest();
+    //app.southEast = map.getSoutEast();
+    //app.southWest = map.getSouthWest();*/
+
     app.centerLat = 'Center Latitude: ' + lat;
     app.centerLng = 'Center Longitude: ' + lon;
+}
+
+function updateNorthEastCoordinates() {
+    let center = map.getCenter() //Gets the center latlng once stop pane
+    let lat = center.lat;
+    let lon = center.lng;
+
+    app.northEast = lat;
+    //app.northWest = map.getNorthWest();
+    //app.southEast = map.getSoutEast();
+    //app.southWest = map.getSouthWest();*/
+
+    //app.centerLat = 'Center Latitude: ' + lat;
+    //app.centerLng = 'Center Longitude: ' + lon;
 }
 
 /**
