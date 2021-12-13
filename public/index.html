@@ -30,11 +30,31 @@
 <body onload="init()">
     <!-- Main app -->
     <div id="app">
-      <br/>
+
+
+        <div class="top-bar-container" data-sticky-container>
+            <div class="sticky sticky-topbar" data-sticky data-options="anchor: page; marginTop: 0; stickyOn: small;">
+                <div class="top-bar">
+                    <div class="top-bar-left">
+                        <ul class="dropdown menu" data-dropdown-menu>
+                            <li class="menu-text">St. Paul Crime Data</li>
+                            <li>
+                                <a href="/index.html">Home</a>
+                            </li>
+                            <li>
+                                <a href="/about.html">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br/>
       <br/>
       
       <div id="leafletmap" onmouseup="updateCenterCoordinates();updateNorthEastCoordinates()" onwheel="updateCenterCoordinates()"></div>
-      <span style="text-align:center;">{{ centerLat }} {{ centerLng }} Length: {{ info.length }}</span>
+<!--      <span style="text-align:center;">{{ centerLat }} {{ centerLng }} Length: {{ info.length }}</span>-->
 
         <div id="table_container">
           <h3 id="ui_controls_title">Location Search</h3>
@@ -89,7 +109,7 @@
                   <input id="Proactive Police Visit" value="Proactive Police Visit" type="checkbox" v-model="query.incident_type"><label for="Proactive Police Visit">Proactive Police Visit</label> <br>
                   <input id="Community Engagement Event" value="Community Engagement Event" type="checkbox" v-model="query.incident_type"><label for="Community Engagement Event">Community Engagement Event</label> <br>
                   <input id="Proactive Foot Patrol" value="Proactive Foot Patrol" type="checkbox" v-model="query.incident_type"><label for="Proactive Foot Patrol">Proactive Foot Patrol</label> <br>
-                  <span>{{ query.incident_type }} </span>
+<!--                  <span>{{ query.incident_type }} </span>-->
                 </fieldset>
               </div>
               <div class="cell small-3">
@@ -112,7 +132,7 @@
                   <input id="Highland" value="15" type="checkbox" v-model="query.neighborhood_name"><label for="Highland">Highland</label> <br>
                   <input id="Summit Hill" value="16" type="checkbox" v-model="query.neighborhood_name"><label for="Summit Hill">Summit Hill</label> <br>
                   <input id="Capital River" value="17" type="checkbox" v-model="query.neighborhood_name"><label for="neighborhood_name_checkbox_17">Capital River</label> <br>
-                  <span>{{ query.neighborhood_name }} </span>
+<!--                  <span>{{ query.neighborhood_name }} </span>-->
                 </fieldset>
               </div>
               <div class="cell small-3">
@@ -187,5 +207,11 @@
 
         </div>
     </div>
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/vendor.js"></script>
+        <script src="js/foundation.js"></script>
+        <script type="application/javascript">
+            $(document).foundation();
+        </script>
 </body>
 </html>
