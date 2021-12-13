@@ -94,7 +94,7 @@ function init() {
                 
                 console.log(streetAddress);
             
-                var url = "https://nominatim.openstreetmap.org/search?street=" + streetNum + " " + streetAddress + "&format=json&accept-language=en";
+                var url = "https://nominatim.openstreetmap.org/search?street=" + streetNum + " " + streetAddress + "&city=St.Paul&State=Minnesota&format=json&accept-language=en";
             
                 let promise = getJSON(url);
             
@@ -107,6 +107,7 @@ function init() {
                     .bindPopup('' + streetNum + " " + streetAddress + "<br>" + incident_date + "<br>" + incident_time + "<br>" + incident_type)
                     .openPopup();
                     //scrollTo(0,0);
+                    map.flyTo([lat, lon], 15);
             
                 }).catch((error) => {
                     console.log(error);
