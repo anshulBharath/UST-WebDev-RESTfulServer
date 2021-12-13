@@ -68,6 +68,19 @@ thead {
     display: inline;
 }
 
+.table_rows {
+    border: 1px solid #B1B1B1;
+    
+}
+
+.table_rows:hover {
+    border: 2px solid #444444;
+    border-left: 4px solid #444444;
+    cursor: pointer;
+}
+
+
+
 #incident_type_fieldset {
     
 }
