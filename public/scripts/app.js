@@ -5,25 +5,30 @@ let neighborhood_markers =
 [
     {location: [44.942068, -93.020521], marker: null, number: 1, name: 'Conway/Battlecreek/Highwood'},
     {location: [44.977413, -93.025156], marker: null, number: 2, name: 'Greater East Side'},
-    {location: [44.931244, -93.079578], marker: null, number: 3, name: ''},
-    {location: [44.956192, -93.060189], marker: null, number: 4, name: ''},
-    {location: [44.978883, -93.068163], marker: null, number: 5, name: ''},
-    {location: [44.975766, -93.113887], marker: null, number: 6, name: ''},
-    {location: [44.959639, -93.121271], marker: null, number: 7, name: ''},
-    {location: [44.947700, -93.128505], marker: null, number: 8, name: ''},
-    {location: [44.930276, -93.119911], marker: null, number: 9, name: ''},
-    {location: [44.982752, -93.147910], marker: null, number: 10, name: ''},
-    {location: [44.963631, -93.167548], marker: null, number: 11, name: ''},
-    {location: [44.973971, -93.197965], marker: null, number: 12, name: ''},
-    {location: [44.949043, -93.178261], marker: null, number: 13, name: ''},
-    {location: [44.934848, -93.176736], marker: null, number: 14, name: ''},
-    {location: [44.913106, -93.170779], marker: null, number: 15, name: ''},
-    {location: [44.937705, -93.136997], marker: null, number: 16, name: ''},
-    {location: [44.949203, -93.093739], marker: null, number: 17, name: ''}
+    {location: [44.931244, -93.079578], marker: null, number: 3, name: 'West Side'},
+    {location: [44.956192, -93.060189], marker: null, number: 4, name: 'Dayton\'s Bluff'},
+    {location: [44.978883, -93.068163], marker: null, number: 5, name: 'Payne/Phalen'},
+    {location: [44.975766, -93.113887], marker: null, number: 6, name: 'North End'},
+    {location: [44.959639, -93.121271], marker: null, number: 7, name: 'Thomas/Dale'},
+    {location: [44.947700, -93.128505], marker: null, number: 8, name: 'Summit/University'},
+    {location: [44.930276, -93.119911], marker: null, number: 9, name: 'West Seventh'},
+    {location: [44.982752, -93.147910], marker: null, number: 10, name: 'Como'},
+    {location: [44.963631, -93.167548], marker: null, number: 11, name: 'Hamline/Midway'},
+    {location: [44.973971, -93.197965], marker: null, number: 12, name: 'St. Anthony'},
+    {location: [44.949043, -93.178261], marker: null, number: 13, name: 'Union Park'},
+    {location: [44.934848, -93.176736], marker: null, number: 14, name: 'Macalester-Groveland'},
+    {location: [44.913106, -93.170779], marker: null, number: 15, name: 'Highland'},
+    {location: [44.937705, -93.136997], marker: null, number: 16, name: 'Summit Hill'},
+    {location: [44.949203, -93.093739], marker: null, number: 17, name: 'Capital River'}
 ];
 
 var myIcon = L.icon({
     iconUrl: '/imgs/crime_icon.png',
+    iconAnchor: [15, 0]
+});
+
+var myIconHood = L.icon({
+    iconUrl: '/imgs/neighborhood_icon.png',
     iconAnchor: [15, 0]
 });
 
@@ -191,8 +196,8 @@ function initNeighborhoodTotalCrimes() {
 
     initTotalCrimes.then((data) => {
         neighborhood_markers.forEach(hood => {
-            L.marker(hood.location).addTo(map)
-            .bindPopup("NeighborHood: " + hood.name + '\nTotal Crimes: ' + hood.marker);
+            L.marker(hood.location, {icon: myIconHood}).addTo(map)
+            .bindPopup("NeighborHood: " + hood.name + '<br> Total Crimes: ' + hood.marker);
             //.openPopup();
         });
     });
