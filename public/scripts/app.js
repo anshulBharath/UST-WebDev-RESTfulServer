@@ -3,23 +3,23 @@ let app;
 let map;
 let neighborhood_markers = 
 [
-    {location: [44.942068, -93.020521], marker: null},
-    {location: [44.977413, -93.025156], marker: null},
-    {location: [44.931244, -93.079578], marker: null},
-    {location: [44.956192, -93.060189], marker: null},
-    {location: [44.978883, -93.068163], marker: null},
-    {location: [44.975766, -93.113887], marker: null},
-    {location: [44.959639, -93.121271], marker: null},
-    {location: [44.947700, -93.128505], marker: null},
-    {location: [44.930276, -93.119911], marker: null},
-    {location: [44.982752, -93.147910], marker: null},
-    {location: [44.963631, -93.167548], marker: null},
-    {location: [44.973971, -93.197965], marker: null},
-    {location: [44.949043, -93.178261], marker: null},
-    {location: [44.934848, -93.176736], marker: null},
-    {location: [44.913106, -93.170779], marker: null},
-    {location: [44.937705, -93.136997], marker: null},
-    {location: [44.949203, -93.093739], marker: null}
+    {location: [44.942068, -93.020521], marker: null, number: 1, name: 'Conway/Battlecreek/Highwood'},
+    {location: [44.977413, -93.025156], marker: null, number: 2, name: 'Greater East Side'},
+    {location: [44.931244, -93.079578], marker: null, number: 3, name: ''},
+    {location: [44.956192, -93.060189], marker: null, number: 4, name: ''},
+    {location: [44.978883, -93.068163], marker: null, number: 5, name: ''},
+    {location: [44.975766, -93.113887], marker: null, number: 6, name: ''},
+    {location: [44.959639, -93.121271], marker: null, number: 7, name: ''},
+    {location: [44.947700, -93.128505], marker: null, number: 8, name: ''},
+    {location: [44.930276, -93.119911], marker: null, number: 9, name: ''},
+    {location: [44.982752, -93.147910], marker: null, number: 10, name: ''},
+    {location: [44.963631, -93.167548], marker: null, number: 11, name: ''},
+    {location: [44.973971, -93.197965], marker: null, number: 12, name: ''},
+    {location: [44.949043, -93.178261], marker: null, number: 13, name: ''},
+    {location: [44.934848, -93.176736], marker: null, number: 14, name: ''},
+    {location: [44.913106, -93.170779], marker: null, number: 15, name: ''},
+    {location: [44.937705, -93.136997], marker: null, number: 16, name: ''},
+    {location: [44.949203, -93.093739], marker: null, number: 17, name: ''}
 ];
 
 function init() {
@@ -102,6 +102,9 @@ function init() {
     }).catch((error) => {
         console.log('Error:', error);
     });
+
+    initNeighborhoodTotalCrimes();
+    getTotalCrimesPerHood();
 }
 
 function getJSON(url) {
@@ -115,6 +118,39 @@ function getJSON(url) {
             error: function(status, message) {
                 reject({status: status.status, message: status.statusText});
             }
+        });
+    });
+}
+
+function getTotalCrimesPerHood(){
+    return new Promise((resolve, reject) => {
+        let num = 0;
+        neighborhood_markers.forEach(hood => {
+            let url = "http://localhost:8000/incidents?neighborhood=" + hood.number + "&limit=400000";
+            //console.log('URL: '+ url);
+   
+           let hoodIncidents = getJSON(url);
+
+           hoodIncidents.then((Data) => {
+               hood.marker = Data.length;
+               num++;
+               if(num >= 17){
+                   resolve(num);
+               }
+           });
+        });
+    });
+}
+
+function initNeighborhoodTotalCrimes() {
+    
+    let initTotalCrimes = getTotalCrimesPerHood();
+
+    initTotalCrimes.then((data) => {
+        neighborhood_markers.forEach(hood => {
+            L.marker(hood.location).addTo(map)
+            .bindPopup("NeighborHood: " + hood.name + '\nTotal Crimes: ' + hood.marker);
+            //.openPopup();
         });
     });
 }
