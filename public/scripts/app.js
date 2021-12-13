@@ -57,10 +57,6 @@ function init() {
             latitude:'',
             centerLat:'Enter a Latitude',
             centerLng:'Enter a Longitude',
-            northEast: '',
-            northWest: '',
-            southEast: '',
-            southWest: '',
             query: { //Data that will be used to query our RESTful server
                 incident_type: [], //Will have to change this to codes, because can't really query incidents by name. Also putting dummy values to test for now
                 neighborhood_name: [], //Dummy data for testing
@@ -203,6 +199,38 @@ function initNeighborhoodTotalCrimes() {
     });
 }
 
+function findVisibleNeighborHoods(){
+    let bounds = map.getBounds();
+    let maxLat = bounds._northEast.lat;
+    let minLat = bounds._southWest.lat;
+    let maxLng = bounds._northEast.lng;
+    let minLng = bounds._southWest.lng;
+
+    let visibleNeighborHoods = [];
+
+    console.log('MaxLat: ' + maxLat + ' MinLat: ' + minLat + ' MaxLng: ' + maxLng + ' MinLng: ' + minLng);
+
+    neighborhood_markers.forEach(hood => {
+        let hoodLat = hood.location[0];
+        let hoodLng = hood.location[1];
+
+        if((hoodLat >= minLat && hoodLat<= maxLat) && (hoodLng >= minLng && hoodLng<= maxLng)){
+            visibleNeighborHoods.push(hood.number);
+        }
+    });
+    console.log(visibleNeighborHoods);
+    let url = creatUrlForQuery('', visibleNeighborHoods, '', '', '', '', '')
+    console.log(url);
+
+    let filterdNeighborhoods = getJSON(url);
+    filterdNeighborhoods.then((data) => {
+        app.info = data;
+    }).catch((error) => {
+        console.log('Error:', error);
+    });
+
+}
+
 /** 
  * Function for putting a marker on the map with the given search. Hooked to 'GO' button in Search By Address
  */
@@ -293,27 +321,8 @@ function updateCenterCoordinates() {
     let lat = center.lat;
     let lon = center.lng;
 
-    //app.northEast = map.getNorthEast().lat;
-    //app.northWest = map.getNorthWest();
-    //app.southEast = map.getSoutEast();
-    //app.southWest = map.getSouthWest();*/
-
     app.centerLat = 'Center Latitude: ' + lat;
     app.centerLng = 'Center Longitude: ' + lon;
-}
-
-function updateNorthEastCoordinates() {
-    let center = map.getCenter() //Gets the center latlng once stop pane
-    let lat = center.lat;
-    let lon = center.lng;
-
-    app.northEast = lat;
-    //app.northWest = map.getNorthWest();
-    //app.southEast = map.getSoutEast();
-    //app.southWest = map.getSouthWest();*/
-
-    //app.centerLat = 'Center Latitude: ' + lat;
-    //app.centerLng = 'Center Longitude: ' + lon;
 }
 
 /**
