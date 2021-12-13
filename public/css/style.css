@@ -10,6 +10,19 @@
     margin: 8rem;
 }
 
+.sticky-topbar {
+    width: 100%;
+}
+
+.developerdiv {
+    font-family: arial;
+    font-size: 24px;
+    margin: 25px;
+    width: auto;
+    height: auto;
+    text-align: center;
+}
+
 
 
 thead {
