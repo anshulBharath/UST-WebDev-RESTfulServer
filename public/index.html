@@ -53,7 +53,7 @@
         <br/>
       <br/>
       
-      <div id="leafletmap" onmouseup="updateCenterCoordinates();updateNorthEastCoordinates()" onwheel="updateCenterCoordinates()"></div>
+      <div id="leafletmap" onmouseup="updateCenterCoordinates();findVisibleNeighborHoods()" onwheel="updateCenterCoordinates();findVisibleNeighborHoods()"></div>
 <!--      <span style="text-align:center;">{{ centerLat }} {{ centerLng }} Length: {{ info.length }}</span>-->
 
         <div id="table_container">
@@ -207,11 +207,11 @@
 
         </div>
     </div>
-        <script src="js/jquery-3.6.0.min.js"></script>
+        <!--<script src="js/jquery-3.6.0.min.js"></script>
         <script src="js/vendor.js"></script>
         <script src="js/foundation.js"></script>
         <script type="application/javascript">
             $(document).foundation();
-        </script>
+        </script>-->
 </body>
 </html>
