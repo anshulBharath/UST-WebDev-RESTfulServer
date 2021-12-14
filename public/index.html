@@ -53,7 +53,47 @@
         <br/>
       <br/>
       
-      <div id="leafletmap" onmouseup="updateCenterCoordinates();findVisibleNeighborHoods()" onwheel="updateCenterCoordinates();findVisibleNeighborHoods()"></div>
+      <br>
+      <br>
+
+      <div class="grid-x grid-padding-x">
+        <div class="cell auto">
+          <p style="text-align:center;"> Center Latitude: <b>{{ centerLatNumeric }}</b>     Center Longitude: <b>{{ centerLngNumeric }}</b> </p>
+          <div id="leafletmap" onmouseup="updateCenterCoordinates();findVisibleNeighborHoods()" onwheel="updateCenterCoordinates();findVisibleNeighborHoods()"></div>
+        </div>
+        <div class="cell auto">
+          <p></p>
+          <br>
+          <table class="table-scroll">
+            <thead>
+              <tr>
+                <th width="150" >Case Number</th>
+                <th width="150">Date</th>
+                <th width="150">Time</th>
+                <th width="150">Code</th>
+                <th width="150">Incident</th>
+                <th width="150">Police Grid</th>
+                <th width="150">Neighborhood Number</th>
+                <th width="150">Block</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="incident in info" v-on:click="goToTableRowOnMap(incident.block, incident.date, incident.time, incident.incident);" class="table_rows">
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.case_number }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.date }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.time }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.code }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.incident }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.police_grid }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.neighborhood_number }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.block }}</td> 
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+      
+      
 <!--      <span style="text-align:center;">{{ centerLat }} {{ centerLng }} Length: {{ info.length }}</span>-->
 
         <div id="table_container">
@@ -175,32 +215,7 @@
           </fieldset>
 
           <div class="grid-container">
-            <table class="table-scroll">
-                <thead>
-                  <tr>
-                    <th width="150" >Case Number</th>
-                    <th width="150">Date</th>
-                    <th width="150">Time</th>
-                    <th width="150">Code</th>
-                    <th width="150">Incident</th>
-                    <th width="150">Police Grid</th>
-                    <th width="150">Neighborhood Number</th>
-                    <th width="150">Block</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="incident in info" v-on:click="goToTableRowOnMap(incident.block, incident.date, incident.time, incident.incident);" class="table_rows">
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.case_number }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.date }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.time }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.code }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.incident }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.police_grid }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.neighborhood_number }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.block }}</td> 
-                  </tr>
-                </tbody>
-              </table>
+            
             </div>
 
             <!-- {{ info }} -->
