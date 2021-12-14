@@ -174,6 +174,9 @@ function init() {
 
     initNeighborhoodTotalCrimes();
     getTotalCrimesPerHood();
+
+    map.on('zoomend moveend', findVisibleNeighborHoods);
+    map.on('zoomend moveend', updateCenterCoordinates);
 }
 
 function getJSON(url) {
