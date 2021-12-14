@@ -28,8 +28,100 @@
     <script type="application/javascript" src="scripts/app.js"></script>
 </head>
 <body onload="init()">
-    <!-- Main app -->
-    <div id="app">
+
+  <!-- Main app -->
+  <div id="app">
+  <script>
+    /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+    function openNav() {
+    document.getElementById("mySidenav").style.width = "270px";
+    document.getElementById("main").style.marginLeft = "260px";
+    }
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+    function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+}
+  </script>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <fieldset class="fieldset" id="incident_type_fieldset">
+      <legend>Incident Type</legend>
+      <label for="Murder"><input id="Murder" value="Murder" type="checkbox" v-model="query.incident_type"> Murder</label>
+      <label for="Rape"><input id="Rape" value="Rape" type="checkbox" v-model="query.incident_type"> Rape</label>
+      <label for="Robbery"><input id="Robbery" value="Robbery" type="checkbox" v-model="query.incident_type"> Robbery</label>
+      <label for="Aggravated Assault"><input id="Aggravated Assault" value="Aggravated Assault" type="checkbox" v-model="query.incident_type"> Aggravated Assault</label>
+      <label for="Burglary"><input id="Burglary" value="Burglary" type="checkbox" v-model="query.incident_type"> Burglary</label>
+      <label for="Theft"><input id="Theft" value="Theft" type="checkbox" v-model="query.incident_type"> Theft</label>
+      <label for="Motor Vehicle Theft"><input id="Motor Vehicle Theft" value="Motor Vehicle Theft" type="checkbox" v-model="query.incident_type"> Motor Vehicle Theft</label>
+      <label for="Assault"><input id="Assault" value="Assault" type="checkbox" v-model="query.incident_type"> Assault</label>
+      <label for="Arson"><input id="Arson" value="Arson" type="checkbox" v-model="query.incident_type"> Arson</label>
+      <label class="input-label" for="Criminal Damage to Property"><input class="input-check" id="Criminal Damage to Property" value="Criminal Damage to Property" type="checkbox" v-model="query.incident_type"> Criminal Damage to Property</label>
+      <label for="Graffiti"><input id="Graffiti" value="Graffiti" type="checkbox" v-model="query.incident_type"> Graffiti</label>
+      <label for="Narcotics"><input id="Narcotics" value="Narcotics" type="checkbox" v-model="query.incident_type"> Narcotics</label>
+      <label for="Weapons"><input id="Weapons" value="Weapons" type="checkbox" v-model="query.incident_type"> Weapons</label>
+      <label for="Investigation of Death"><input id="Investigation of Death" value="Investigation of Death" type="checkbox" v-model="query.incident_type"> Investigation of Death</label>
+      <label for="Proactive Police Visit"><input id="Proactive Police Visit" value="Proactive Police Visit" type="checkbox" v-model="query.incident_type"> Proactive Police Visit</label>
+      <label class="input-label" for="Community Engagement Event"><input class="input-check"id="Community Engagement Event" value="Community Engagement Event" type="checkbox" v-model="query.incident_type"> Community Engagement Event</label>
+      <label for="Proactive Foot Patrol"><input id="Proactive Foot Patrol" value="Proactive Foot Patrol" type="checkbox" v-model="query.incident_type"> Proactive Foot Patrol</label>
+<!--                  <span>{{ query.incident_type }} </span>-->
+    </fieldset>
+    <fieldset class="fieldset" id="neighborhood_name_fieldset">
+      <legend>Neighborhood Name</legend>
+      <label class="input-label" for="Conway/Battlecreek/Highwood"><input class="input-check" id="Conway/Battlecreek/Highwood" value="1" type="checkbox" v-model="query.neighborhood_name"> Conway/Battlecreek/ Highwood</label>
+      <label for="Greater East Side"><input id="Greater East Side" value="2" type="checkbox" v-model="query.neighborhood_name"> Greater East Side</label>
+      <label for="West Side"><input id="West Side" value="3" type="checkbox" v-model="query.neighborhood_name"> West Side</label>
+      <label for="Dayton's Bluff"><input id="Dayton's Bluff" value="4" type="checkbox" v-model="query.neighborhood_name"> Dayton's Bluff</label>
+      <label for="Payne/Phalen"><input id="Payne/Phalen" value="5" type="checkbox" v-model="query.neighborhood_name"> Payne/Phalen</label>
+      <label for="North End"><input id="North End" value="6" type="checkbox" v-model="query.neighborhood_name"> North End</label>
+      <label for="Thomas/Dale(Frogtown)"><input id="Thomas/Dale(Frogtown)" value="7" type="checkbox" v-model="query.neighborhood_name"> Thomas/Dale (Frogtown)</label>
+      <label for="Summit/University"><input id="Summit/University" value="8" type="checkbox" v-model="query.neighborhood_name"> Summit/University</label> 
+      <label for="West Seventh"><input id="West Seventh" value="9" type="checkbox" v-model="query.neighborhood_name"> West Seventh</label> 
+      <label for="Como"><input id="Como" value="10" type="checkbox" v-model="query.neighborhood_name"> Como</label> 
+      <label for="Hamline/Midway"><input id="Hamline/Midway" value="11" type="checkbox" v-model="query.neighborhood_name"> Hamline/Midway</label>
+      <label for="St. Anthony"><input id="St. Anthony" value="12" type="checkbox" v-model="query.neighborhood_name"> St. Anthony</label>
+      <label for="Union Park"><input id="Union Park" value="13" type="checkbox" v-model="query.neighborhood_name"> Union Park</label>
+      <label for="Macalester-Groveland"><input id="Macalester-Groveland" value="14" type="checkbox" v-model="query.neighborhood_name"> Macalester-Groveland</label>
+      <label for="Highland"><input id="Highland" value="15" type="checkbox" v-model="query.neighborhood_name"> Highland</label>
+      <label for="Summit Hill"><input id="Summit Hill" value="16" type="checkbox" v-model="query.neighborhood_name"> Summit Hill</label>
+      <label for="neighborhood_name_checkbox_17"><input id="Capital River" value="17" type="checkbox" v-model="query.neighborhood_name"> Capital River</label>
+<!--                  <span>{{ query.neighborhood_name }} </span>-->
+    </fieldset>
+
+    <fieldset class="fieldset" id="date_range_fieldset">
+      <legend>Date Range</legend>
+      <label for="date_range_start_input">Start Date</label>
+      <input id="date_range_start_input" type="date" v-model="query.start_date"> <br>
+      <label for="date_range_end_input">End Date</label>
+      <input id="date_range_end_input" type="date" v-model="query.end_date"> <br>
+    </fieldset>
+
+    <fieldset class="fieldset" id="time_range_fieldset">
+      <legend>Time Range</legend>
+      <label for="date_range_start_input">Start Time</label>
+      <input id="date_range_start_input" type="time" v-model="query.start_time"> <br>
+      <label for="date_range_end_input">End Time</label>
+      <input id="date_range_end_input" type="time" v-model="query.end_time"> <br>
+    </fieldset>
+
+    <fieldset class="fieldset" id="max_number_incidents_fieldset">
+      <legend>Maximum Number of Incidents</legend>
+      <label for="date_range_start_input">Limit</label>
+      <input id="date_range_start_input" type="number" v-model='query.limit'> <br>
+    </fieldset>
+
+    <fieldset class="fieldset filter-button" id="submit_fieldset">
+      <input type="submit" class="button" value="Apply Filters" onclick="filterIncidents()">
+      <input type="submit" class="button" value="Reset Filters" onclick="filterIncidents()">
+    </fieldset>
+  </div>
+
+  <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+  <div id="main">
+    
+    
 
 
         <div class="top-bar-container" data-sticky-container>
@@ -39,10 +131,10 @@
                         <ul class="dropdown menu" data-dropdown-menu>
                             <li class="menu-text">St. Paul Crime Data</li>
                             <li>
-                                <a href="/index.html">Home</a>
+                                <a href="http://localhost:8000/home">Home</a>
                             </li>
                             <li>
-                                <a href="/about.html">About</a>
+                                <a href="http://localhost:8000/about">About</a>
                             </li>
                         </ul>
                     </div>
@@ -53,15 +145,55 @@
         <br/>
       <br/>
       
-      <div id="leafletmap" onmouseup="updateCenterCoordinates();findVisibleNeighborHoods()" onwheel="updateCenterCoordinates();findVisibleNeighborHoods()"></div>
+      <br>
+      <br>
+
+      <div class="grid-x grid-padding-x">
+        <div class="cell auto">
+          <p style="text-align:center;"> Center Latitude: <b>{{ centerLatNumeric }}</b>     Center Longitude: <b>{{ centerLngNumeric }}</b> </p>
+          <div id="leafletmap" onmouseup="updateCenterCoordinates();findVisibleNeighborHoods()" onwheel="updateCenterCoordinates();findVisibleNeighborHoods()"></div>
+        </div>
+        <div class="cell auto">
+          <!-- Use any element to open the sidenav -->
+          <input type="submit" class="button" value="Filter Table" onclick="openNav()">
+
+          <table class="table-scroll">
+            <thead>
+              <tr>
+                <th width="150" >Case Number</th>
+                <th width="150">Date</th>
+                <th width="150">Time</th>
+                <th width="150">Code</th>
+                <th width="150">Incident</th>
+                <th width="150">Police Grid</th>
+                <th width="150">Neighborhood Number</th>
+                <th width="150">Block</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="incident in info" v-on:click="goToTableRowOnMap(incident.block, incident.date, incident.time, incident.incident);" class="table_rows">
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.case_number }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.date }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.time }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.code }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.incident }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.police_grid }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.neighborhood_number }}</td>
+                  <td :class="setTableRowColor(incident.incident)">{{ incident.block }}</td> 
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+      
+      
 <!--      <span style="text-align:center;">{{ centerLat }} {{ centerLng }} Length: {{ info.length }}</span>-->
 
         <div id="table_container">
-          <h3 id="ui_controls_title">Location Search</h3>
             <div id="ui_controls_container" class="grid-x">
               <div class="cell small-5">
                 <fieldset class="fieldset">
-                  <legend>Search By Address</legend>
+                  <legend> <h4>Search By Address</h4></legend>
                   <input type="text" placeholder="Street Number" v-model="streetNumber"> <br>
                   <input type="text" placeholder="Street Name" v-model="streetName"> <br>
                   <button  class="button" onclick="searchAddress()">GO</button> <!-- v-on:click="searchAddress"-->
@@ -77,7 +209,7 @@
               </div>
               <div class="cell small-5">
                 <fieldset class="fieldset">
-                  <legend>Search By Longitude & Latitude</legend>
+                  <legend><h4>Search By Longitude & Latitude</h4></legend>
                   <input type="text" :placeholder="centerLat" v-model="latitude"> <br>
                   <input type="text" :placeholder="centerLng" v-model="longitude"> <br>
                   <button class="button" onclick="searchLonLat()">GO</button>
@@ -85,7 +217,7 @@
               </div>
         </div>
         
-        <div id="table_container">
+        <!--<div id="table_container">
           <h3 id="ui_controls_title">Data Filters</h3>
           <fieldset class="fieldset">
           <div id="ui_controls_container" class="grid-x">
@@ -108,9 +240,9 @@
                   <input id="Investigation of Death" value="Investigation of Death" type="checkbox" v-model="query.incident_type"><label for="Investigation of Death">Investigation of Death</label> <br>
                   <input id="Proactive Police Visit" value="Proactive Police Visit" type="checkbox" v-model="query.incident_type"><label for="Proactive Police Visit">Proactive Police Visit</label> <br>
                   <input id="Community Engagement Event" value="Community Engagement Event" type="checkbox" v-model="query.incident_type"><label for="Community Engagement Event">Community Engagement Event</label> <br>
-                  <input id="Proactive Foot Patrol" value="Proactive Foot Patrol" type="checkbox" v-model="query.incident_type"><label for="Proactive Foot Patrol">Proactive Foot Patrol</label> <br>
+                  <input id="Proactive Foot Patrol" value="Proactive Foot Patrol" type="checkbox" v-model="query.incident_type"><label for="Proactive Foot Patrol">Proactive Foot Patrol</label> <br> -->
 <!--                  <span>{{ query.incident_type }} </span>-->
-                </fieldset>
+                <!--</fieldset>
               </div>
               <div class="cell small-3">
                 <fieldset class="fieldset" id="neighborhood_name_fieldset">
@@ -131,9 +263,9 @@
                   <input id="Macalester-Groveland" value="14" type="checkbox" v-model="query.neighborhood_name"><label for="Macalester-Groveland">Macalester-Groveland</label> <br>
                   <input id="Highland" value="15" type="checkbox" v-model="query.neighborhood_name"><label for="Highland">Highland</label> <br>
                   <input id="Summit Hill" value="16" type="checkbox" v-model="query.neighborhood_name"><label for="Summit Hill">Summit Hill</label> <br>
-                  <input id="Capital River" value="17" type="checkbox" v-model="query.neighborhood_name"><label for="neighborhood_name_checkbox_17">Capital River</label> <br>
+                  <input id="Capital River" value="17" type="checkbox" v-model="query.neighborhood_name"><label for="neighborhood_name_checkbox_17">Capital River</label> <br>-->
 <!--                  <span>{{ query.neighborhood_name }} </span>-->
-                </fieldset>
+                <!--</fieldset>
               </div>
               <div class="cell small-3">
                 <fieldset class="fieldset" id="date_range_fieldset">
@@ -174,44 +306,12 @@
             </div>
           </fieldset>
 
-          <div class="grid-container">
-            <table class="table-scroll">
-                <thead>
-                  <tr>
-                    <th width="150" >Case Number</th>
-                    <th width="150">Date</th>
-                    <th width="150">Time</th>
-                    <th width="150">Code</th>
-                    <th width="150">Incident</th>
-                    <th width="150">Police Grid</th>
-                    <th width="150">Neighborhood Number</th>
-                    <th width="150">Block</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="incident in info" v-on:click="goToTableRowOnMap(incident.block, incident.date, incident.time, incident.incident);" class="table_rows">
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.case_number }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.date }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.time }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.code }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.incident }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.police_grid }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.neighborhood_number }}</td>
-                      <td :class="setTableRowColor(incident.incident)">{{ incident.block }}</td> 
-                  </tr>
-                </tbody>
-              </table>
-            </div>
 
-            <!-- {{ info }} -->
+        </div>-->
 
-        </div>
-    </div>
-        <!--<script src="js/jquery-3.6.0.min.js"></script>
-        <script src="js/vendor.js"></script>
-        <script src="js/foundation.js"></script>
-        <script type="application/javascript">
-            $(document).foundation();
-        </script>-->
+        
+     </div> 
+
+
 </body>
 </html>

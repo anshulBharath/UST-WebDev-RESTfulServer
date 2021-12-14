@@ -53,6 +53,18 @@ app.get('/home',(req, res) => {
     });
 });
 
+app.get('/about',(req, res) => {
+    console.log('about');
+    fs.readFile(path.join(public_dir, 'about.html'), 'utf-8', (err, page) => {
+        if(err){
+            res.status(404).send("Error: File Not Found");
+        }
+        else { 
+            res.status(200).type('html').send(page);
+        }
+    });
+});
+
 // GET request handler for '/codes'
 app.get('/codes',(req, res) => {
     console.log('codes');

@@ -57,6 +57,8 @@ function init() {
             latitude:'',
             centerLat:'Enter a Latitude',
             centerLng:'Enter a Longitude',
+            centerLatNumeric: '',
+            centerLngNumeric: '',
             query: { //Data that will be used to query our RESTful server
                 incident_type: [], //Will have to change this to codes, because can't really query incidents by name. Also putting dummy values to test for now
                 neighborhood_name: [], //Dummy data for testing
@@ -100,8 +102,31 @@ function init() {
                 let promise = getJSON(url);
             
                 promise.then((data) => {
+                    if(data[0] === undefined){
+                        alert("ERROR! This row is invalid");
+                        return;
+                    }
+                    if(data[0].lon === undefined){
+                        alert("ERROR! This row is invalid");
+                        return;
+                    }
+                    if(data[0].lat === undefined){
+                        alert("ERROR! This row is invalid");
+                        return;
+                    }
+                    
                     let lon = data[0].lon;
                     let lat = data[0].lat;
+
+                    if(lat < 44.8883383134382 || lat > 44.99159144730164){ 
+                        alert("ERROR! This row is invalid");
+                        return;
+                    }
+                
+                    if(lon < -93.20744225904383 || lon > -93.0043790042584){
+                        alert("ERROR! This row is invalid");
+                        return;
+                    }
             
                     console.log(lat +", "+ lon);
                     L.marker([lat, lon], {icon: myIcon}).addTo(map)
@@ -323,6 +348,8 @@ function updateCenterCoordinates() {
 
     app.centerLat = 'Center Latitude: ' + lat;
     app.centerLng = 'Center Longitude: ' + lon;
+    app.centerLatNumeric = Number((lat).toFixed(6));
+    app.centerLngNumeric = Number((lon).toFixed(6));
 }
 
 /**
