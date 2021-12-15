@@ -174,6 +174,9 @@ function init() {
 
     initNeighborhoodTotalCrimes();
     getTotalCrimesPerHood();
+
+    map.on('zoomend moveend', findVisibleNeighborHoods);
+    map.on('zoomend moveend', updateCenterCoordinates);
 }
 
 function getJSON(url) {
@@ -218,7 +221,7 @@ function initNeighborhoodTotalCrimes() {
     initTotalCrimes.then((data) => {
         neighborhood_markers.forEach(hood => {
             L.marker(hood.location, {icon: myIconHood}).addTo(map)
-            .bindPopup("NeighborHood: " + hood.name + '<br> Total Crimes: ' + hood.marker);
+            .bindPopup("Neighborhood: " + hood.name + "<br> Neighborhood #: " + hood.number + '<br> Total Crimes: ' + hood.marker);
             //.openPopup();
         });
     });
@@ -387,6 +390,19 @@ function filterIncidents(){
         });
     });  
 }
+
+function resetFilter(){
+    let url = 'http://localhost:8000/incidents/'
+
+    let resetData = getJSON(url);
+    resetData.then((data) => {
+            app.info = data;
+            findVisibleNeighborHoods()
+    }).catch((error) => {
+        console.log('Error:', error);
+    });
+}
+
 /**
  * Takes in a list of incident types and returns an array with all the codes associated with those incidents as an array.
  */

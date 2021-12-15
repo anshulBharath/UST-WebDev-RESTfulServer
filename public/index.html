@@ -114,7 +114,7 @@
 
     <fieldset class="fieldset filter-button" id="submit_fieldset">
       <input type="submit" class="button" value="Apply Filters" onclick="filterIncidents()">
-      <input type="submit" class="button" value="Reset Filters" onclick="filterIncidents()">
+      <input type="submit" class="button" value="Reset Filters" onclick="resetFilter()">
     </fieldset>
   </div>
 
@@ -147,15 +147,25 @@
       
       <br>
       <br>
-
+      
       <div class="grid-x grid-padding-x">
         <div class="cell auto">
-          <p style="text-align:center;"> Center Latitude: <b>{{ centerLatNumeric }}</b>     Center Longitude: <b>{{ centerLngNumeric }}</b> </p>
-          <div id="leafletmap" onmouseup="updateCenterCoordinates();findVisibleNeighborHoods()" onwheel="updateCenterCoordinates();findVisibleNeighborHoods()"></div>
+          <p class="coord-header"> Center Latitude: <b>{{ centerLatNumeric }}</b>     Center Longitude: <b>{{ centerLngNumeric }}</b> </p>
+          <div id="leafletmap"></div>
         </div>
         <div class="cell auto">
           <!-- Use any element to open the sidenav -->
-          <input type="submit" class="button" value="Filter Table" onclick="openNav()">
+          <div class="grid-x grid-padding-x">
+            <div class="large-6 cell outer">
+              <input type="submit" class="button inner" value="Filter Table" onclick="openNav()">
+            </div>
+            <div class="large-6 cell outer">
+              <p class="legend_text">Violent Crimes: </p> <p id="violent_crimes_legend_color_block">||||</p><span>  </span>
+              <p class="legend_text">Property Crimes: </p> <p id="property_crimes_legend_color_block">||||</p>
+              <p class="legend_text">Other Crimes: </p> <p id="other_crimes_legend_color_block">||||</p>
+            </div>
+          </div>
+          
 
           <table class="table-scroll">
             <thead>

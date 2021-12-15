@@ -22,7 +22,10 @@
     text-align: center;
 }
 
-
+.coord-header{
+    text-align:center;
+    font-size: 1.4rem;
+}
 
 thead {
     position: sticky;
@@ -45,9 +48,6 @@ thead {
 
 #legend {
     background-color: #EEEEEE;
-   
-    
-    display: inline;
 }
 
 #legend_title {
@@ -58,8 +58,23 @@ thead {
 
 .legend_text {
     display: inline;
+    margin: auto;
     
 }
+
+.outer-table-head {
+    display: inline-block;
+    vertical-align:middle;
+}
+
+.outer {
+    text-align: center;  
+}
+
+.inner {
+    margin: auto;
+}
+
 
 #violent_crimes_legend_color_block{ 
     background-color: #FFDBDB;
@@ -129,8 +144,8 @@ table th {
 }
 
 .filter-button input{
-    display: flex;
-    justify-content: center;
+      display: flex;
+  justify-content: center;
 }
 
 /* The side navigation menu */
