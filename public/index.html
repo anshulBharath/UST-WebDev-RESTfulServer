@@ -147,7 +147,7 @@
       
       <br>
       <br>
-
+      
       <div class="grid-x grid-padding-x">
         <div class="cell auto">
           <p class="coord-header"> Center Latitude: <b>{{ centerLatNumeric }}</b>     Center Longitude: <b>{{ centerLngNumeric }}</b> </p>
@@ -155,12 +155,16 @@
         </div>
         <div class="cell auto">
           <!-- Use any element to open the sidenav -->
-          <p class="cell">
-              <input type="submit" class="button inner" value="Filter Table" onclick="openNav()"> 
+          <div class="grid-x grid-padding-x">
+            <div class="large-6 cell outer">
+              <input type="submit" class="button inner" value="Filter Table" onclick="openNav()">
+            </div>
+            <div class="large-6 cell outer">
               <p class="legend_text">Violent Crimes: </p> <p id="violent_crimes_legend_color_block">||||</p><span>  </span>
               <p class="legend_text">Property Crimes: </p> <p id="property_crimes_legend_color_block">||||</p>
               <p class="legend_text">Other Crimes: </p> <p id="other_crimes_legend_color_block">||||</p>
-          </p>
+            </div>
+          </div>
           
 
           <table class="table-scroll">

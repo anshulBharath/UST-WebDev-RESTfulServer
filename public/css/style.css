@@ -48,9 +48,6 @@ thead {
 
 #legend {
     background-color: #EEEEEE;
-   
-    
-    display: inline;
 }
 
 #legend_title {
@@ -61,12 +58,17 @@ thead {
 
 .legend_text {
     display: inline;
+    margin: auto;
     
 }
 
 .outer-table-head {
     display: inline-block;
     vertical-align:middle;
+}
+
+.outer {
+    text-align: center;  
 }
 
 .inner {
