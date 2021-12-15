@@ -1,5 +1,5 @@
 #leafletmap {
-    width: 800px;  /* feel free to change this! */
+    width: 100%;  /* feel free to change this! */
     height: 500px; /* feel free to change this! */
     margin: auto;
     padding: 5px;
@@ -122,7 +122,7 @@ thead {
 }
 
 .table-scroll {
-    width: 800px;
+    width: 100%;
     display: block;
     height: 500px;
     overflow-y: auto;
