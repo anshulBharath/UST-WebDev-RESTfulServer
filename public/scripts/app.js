@@ -221,7 +221,7 @@ function initNeighborhoodTotalCrimes() {
     initTotalCrimes.then((data) => {
         neighborhood_markers.forEach(hood => {
             L.marker(hood.location, {icon: myIconHood}).addTo(map)
-            .bindPopup("NeighborHood: " + hood.name + '<br> Total Crimes: ' + hood.marker);
+            .bindPopup("Neighborhood: " + hood.name + "<br> Neighborhood #: " + hood.number + '<br> Total Crimes: ' + hood.marker);
             //.openPopup();
         });
     });
