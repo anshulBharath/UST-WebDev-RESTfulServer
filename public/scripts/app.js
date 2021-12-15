@@ -390,6 +390,19 @@ function filterIncidents(){
         });
     });  
 }
+
+function resetFilter(){
+    let url = 'http://localhost:8000/incidents/'
+
+    let resetData = getJSON(url);
+    resetData.then((data) => {
+            app.info = data;
+            findVisibleNeighborHoods()
+    }).catch((error) => {
+        console.log('Error:', error);
+    });
+}
+
 /**
  * Takes in a list of incident types and returns an array with all the codes associated with those incidents as an array.
  */
