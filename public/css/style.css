@@ -29,7 +29,7 @@
 
 thead {
     position: sticky;
-    top: -1px; /* Don't forget this, required for the stickiness */
+    top: -6px; /* Don't forget this, required for the stickiness */
     background: white;
     margin: 0;
     padding: 0;
