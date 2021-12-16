@@ -247,16 +247,24 @@ function findVisibleNeighborHoods(){
         }
     });
     console.log(visibleNeighborHoods);
-    let url = creatUrlForQuery('', visibleNeighborHoods, '', '', '', '', '')
-    console.log(url);
+    
+    let codes = getCodesArray(app.query.incident_type)
+    console.log(codes);
+    codes.then((codes_array) => {
+        let url = creatUrlForQuery(codes_array, visibleNeighborHoods, app.query.limit, app.query.start_date, app.query.end_date, app.query.start_time, app.query.end_time)
 
-    let filterdNeighborhoods = getJSON(url);
+        let filterdNeighborhoods = getJSON(url);
     filterdNeighborhoods.then((data) => {
         app.info = data;
     }).catch((error) => {
         console.log('Error:', error);
     });
 
+    });
+    
+    //console.log(url);
+
+    
 }
 
 /** 
