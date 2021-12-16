@@ -233,3 +233,8 @@ table th {
     margin: 0 auto;
     text-align: left;
   }
+
+  .rows-returned {
+      text-align: center;
+      font-size: 1.2rem;
+  }

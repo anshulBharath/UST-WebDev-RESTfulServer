@@ -66,7 +66,8 @@ function init() {
                 end_date: '',
                 start_time: '',
                 end_time: '',
-                limit: ''
+                limit: '',
+                rows_returned: ''
             }
         }, 
         methods: {
@@ -148,6 +149,7 @@ function init() {
     let initialDate = getJSON(crime_url + '/incidents');
     initialDate.then((data) => {
             app.info = data;
+            app.query.rows_returned = data.length;
     }).catch((error) => {
         console.log('Error:', error);
     });
@@ -256,6 +258,7 @@ function findVisibleNeighborHoods(){
         let filterdNeighborhoods = getJSON(url);
     filterdNeighborhoods.then((data) => {
         app.info = data;
+        app.query.rows_returned = data.length;
     }).catch((error) => {
         console.log('Error:', error);
     });
@@ -393,6 +396,7 @@ function filterIncidents(){
         let initialDate = getJSON(url);
         initialDate.then((data) => {
             app.info = data;
+            app.query.rows_returned = data.length;
         }).catch((error) => {
             console.log('Error:', error);
         });
@@ -405,7 +409,8 @@ function resetFilter(){
     let resetData = getJSON(url);
     resetData.then((data) => {
             app.info = data;
-            findVisibleNeighborHoods()
+            app.query.rows_returned = data.length;
+            //findVisibleNeighborHoods()
     }).catch((error) => {
         console.log('Error:', error);
     });
