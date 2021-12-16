@@ -233,3 +233,16 @@ table th {
     margin: 0 auto;
     text-align: left;
   }
+
+  .rows-returned {
+      text-align: center;
+      font-size: 1.2rem;
+  }
+
+  .video-style {
+    padding: 60px 0;
+  }
+
+  .about-text {
+      text-align: justify;
+  }

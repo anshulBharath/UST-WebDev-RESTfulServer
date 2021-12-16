@@ -31,6 +31,8 @@
     </div>
     <div class="developerdiv">
         <h1>About the Developers</h1>
+        <br>
+        
         <div class="grid-x grid-padding-x">
             <div class="large-4 cell">
                 <h3>
@@ -69,23 +71,44 @@
         
 
       
-
         <h1>About the Project</h1>
-        <p>
-            This website was created using the Leafet API, Nominatim API, and a custom API we created for St. Paul crime data all on the Vue Framework.
-        </p>
+        <div class="grid-x grid-padding-x">
+            <div class="large-6 cell">
+                
+                <p class="about-text">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This website was created using the Leaflet API, Nominatim API, and a custom API we created for St. Paul crime data all on the Vue Framework. <br>
+                    
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Leaflet is the API that we used to utilize different map functions. With this API we were able to create markers on the map and get specific 
+                    latitudes and longitdudes of specific areas. Leaflet has a lot of functionality and customization, but a large learning curve. <br>
+        
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nominatim is an API used to get locations and addresses. This was mainly used in our search bar, so that we could convert street addresses
+                    into latitudes and longitudes as per the specifications of Leaflet. <br>
+                    
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Our custome API is a REST API that is attached to a crime database. You can provide different options in order to query different crimes. This 
+                    API was used for populating our table and filtering our results to the table.<br>
+        
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vue.js was the client-side framework that we used to build our front-end and handle data that was going from our client to our app. Vue
+                    made our lives a whole lot easier when creating this site and gave us an introduction into how powerful client-side frameworks are.
+                </p>
+            </div>
 
-        <h1>Demo</h1>
-        <span> Attach Video Here</span>
+            <div class="large-6 cell video-style"> 
+                <iframe width="600" height="400"
+                    src="https://www.youtube.com/embed/dQiYnFQX3Qg"> <!-- Just need to edit this with our video-->
+                </iframe>
+            </div>
 
+        </div>
+
+        <br>
         <h1>What We Learned</h1>
         <ul class="about_list">
+            <li>There have been <b>41</b> murders in St. Paul over a span of 7 years</li>
             <li>Surprisingly large number of Proactive Police Visits</li>
             <li>Never knew exactly how St. Pauls major neighborhoods were laid out, so it is interesting to see them visually</li>
             <li>The amount of incidents a day is higher than I expected</li>
             <li>Suprisingly large number of Arsons</li>
-            <li>Item 5</li>
-            <li>Item 6</li>
+            <li>St. Thomas Campus is perfectly split by Union Park Neighborhood and Macalester-Groveland neighborhood</li>
         </ul>
 
     </div>
