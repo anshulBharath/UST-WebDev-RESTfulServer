@@ -22,6 +22,14 @@
     text-align: center;
 }
 
+.headshot {
+    margin-bottom: .75rem;
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+
+}
+
 .coord-header{
     text-align:center;
     font-size: 1.4rem;
